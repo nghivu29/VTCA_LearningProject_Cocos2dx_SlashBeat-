@@ -46,7 +46,15 @@
       <Filter>src\actor</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\CHelper.cpp" />
-    <ClCompile Include="..\Classes\CHeroKnight.cpp" />
+    <ClCompile Include="..\Classes\CHeroKnight.cpp">
+      <Filter>src\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CMusic.cpp">
+      <Filter>src\music</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CMusicTest.cpp">
+      <Filter>src\music</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -72,7 +80,15 @@
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\Classes\CHelper.h" />
-    <ClInclude Include="..\Classes\CHeroKnight.h" />
+    <ClInclude Include="..\Classes\CHeroKnight.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CMusic.h">
+      <Filter>src\music</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CMusicTest.h">
+      <Filter>src\music</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

@@ -20,6 +20,13 @@ bool CSceneGameplay::init()
 		return false;
 	}
 
+	// test music
+	_music = CMusicTest::create();
+	addChild(_music);
+	_music->retain();
+	_music->playMusic();
+	scheduleUpdate();
+
 	// code de test animation
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = [this](cocos2d::EventKeyboard::KeyCode k, cocos2d::Event*) {
@@ -52,6 +59,14 @@ bool CSceneGameplay::init()
 bool CSceneGameplay::loadResource()
 {
 	return true;
+}
+
+void CSceneGameplay::update(float delta)
+{
+	if (_music->hasNote())
+	{
+		log("%d-%d===============================================",_music->getBeatCurrent(), _music->getMeasureCurrent());
+	}
 }
 
 bool CSceneGameplay::initHero()
