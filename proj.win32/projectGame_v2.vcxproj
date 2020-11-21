@@ -158,10 +158,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\CHelper.cpp" />
     <ClCompile Include="..\Classes\CHero.cpp" />
     <ClCompile Include="..\Classes\CHeroKnight.cpp" />
+    <ClCompile Include="..\Classes\CLayerOption.cpp" />
     <ClCompile Include="..\Classes\CMusic.cpp" />
     <ClCompile Include="..\Classes\CMusicTest.cpp" />
     <ClCompile Include="..\Classes\CObjDependOnMusic.cpp" />
     <ClCompile Include="..\Classes\CSceneGameplay.cpp" />
+    <ClCompile Include="..\Classes\CSceneLoading.cpp" />
+    <ClCompile Include="..\Classes\CSceneMainmenu.cpp" />
+    <ClCompile Include="..\Classes\CSceneSplash.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -175,10 +179,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\CHelper.h" />
     <ClInclude Include="..\Classes\CHero.h" />
     <ClInclude Include="..\Classes\CHeroKnight.h" />
+    <ClInclude Include="..\Classes\CLayerOption.h" />
     <ClInclude Include="..\Classes\CMusic.h" />
     <ClInclude Include="..\Classes\CMusicTest.h" />
     <ClInclude Include="..\Classes\CObjDependOnMusic.h" />
     <ClInclude Include="..\Classes\CSceneGameplay.h" />
+    <ClInclude Include="..\Classes\CSceneLoading.h" />
+    <ClInclude Include="..\Classes\CSceneMainmenu.h" />
+    <ClInclude Include="..\Classes\CSceneSplash.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />

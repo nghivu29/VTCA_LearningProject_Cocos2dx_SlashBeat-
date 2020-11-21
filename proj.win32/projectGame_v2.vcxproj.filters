@@ -70,6 +70,18 @@
     <ClCompile Include="..\Classes\CEnemyManager.cpp">
       <Filter>src\manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CSceneSplash.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CSceneLoading.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CSceneMainmenu.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CLayerOption.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -115,6 +127,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\CEnemyManager.h">
       <Filter>src\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CSceneSplash.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CSceneLoading.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CSceneMainmenu.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CLayerOption.h">
+      <Filter>src\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

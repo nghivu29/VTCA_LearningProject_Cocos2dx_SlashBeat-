@@ -4,6 +4,7 @@
 #include "CHero.h"
 #include "CMusicTest.h"
 #include "CEnemyManager.h"
+#include "CLayerOption.h"
 
 class CSceneGameplay : public cocos2d::Scene
 {
@@ -12,6 +13,9 @@ protected:
 	CHero* _hero;
 	CMusic* _music;
 	CEnemyManager* _enemyManager;
+
+	cocos2d::Menu* _menuCtrl;
+	CLayerOption* _layerOption;
 
 	cocos2d::Vec2 origin;
 	cocos2d::Size visibleSize;
@@ -36,5 +40,9 @@ protected:
 	virtual bool initHero();
 	virtual bool initBackground();
 	virtual bool initEnemyMananager();
+	virtual bool initBtnPause();
+	virtual bool initLayerOption();
+
+	void pauseGame(cocos2d::Ref*);
 };
 

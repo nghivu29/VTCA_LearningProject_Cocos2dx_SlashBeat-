@@ -24,6 +24,9 @@ bool CSceneGameplay::init()
 		return false;
 	}
 
+	initLayerOption();
+	initBtnPause();
+
 	//// test enemy
 	//auto enemy = CEnemySphericalMonter::createMonster();
 	//enemy->retain();
@@ -130,4 +133,34 @@ bool CSceneGameplay::initEnemyMananager()
 {
 	_enemyManager = new CEnemyManager(_music);
 	return true;
+}
+
+bool CSceneGameplay::initBtnPause()
+{
+ 	auto itemPause = MenuItemFont::create("Pause", CC_CALLBACK_1(CSceneGameplay::pauseGame, this));
+
+	Vector<MenuItem*> vector;
+	vector.pushBack(itemPause);
+	_menuCtrl = Menu::createWithArray(vector);
+	_menuCtrl->setColor(Color3B::BLACK);
+	_menuCtrl->retain();
+	_menuCtrl->setPosition(origin.x + visibleSize.width - itemPause->getContentSize().width, origin.y + visibleSize.height - itemPause->getContentSize().height);
+	addChild(_menuCtrl);
+	return true;
+}
+
+bool CSceneGameplay::initLayerOption()
+{
+	_layerOption = CLayerOption::createLayer();
+	_layerOption->setPosition(-5000, 0);
+	addChild(_layerOption, 5);
+	_layerOption->retain();
+	return true;
+}
+
+void CSceneGameplay::pauseGame(cocos2d::Ref *)
+{
+	_layerOption->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2);
+	Director::getInstance()->pause();
+	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 }

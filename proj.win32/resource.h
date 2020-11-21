@@ -89,3 +89,12 @@
 
 // file backgound
 #define BACKGROUND_PATH "res/bg/forest/bg_forest.png"
+
+
+// tên game
+#define GAME_TITLE "Slash Beat"
+#define GAME_TITLE_SIZE 200
+
+// res font
+#define FONT_ARIAL_PATH "fonts/arial.ttf"
+#define FONT_MARKERFELT_PATH "fonts/Marker Felt.ttf"

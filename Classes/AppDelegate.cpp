@@ -25,6 +25,8 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "CSceneGameplay.h"
+#include "CSceneSplash.h"
+#include "CSceneMainmenu.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -119,7 +121,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = CSceneGameplay::createScene();
+    // auto scene = CSceneGameplay::createScene();
+	auto scene = CSceneSplash::createScene();
+	//auto scene = CSceneMainmenu::createScene();
 
     // run
     director->runWithScene(scene);
