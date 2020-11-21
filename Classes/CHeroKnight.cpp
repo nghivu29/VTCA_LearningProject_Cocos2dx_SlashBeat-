@@ -13,7 +13,9 @@ bool CHeroKnight::init()
 	{
 		return false;
 	}
+	SpriteFrameCache::getInstance()->destroyInstance();
 	setScale(0.3f);
+	
 	return true;
 }
 
@@ -79,7 +81,7 @@ bool CHeroKnight::initDead()
 
 bool CHeroKnight::initHit()
 {
-	_animatesHit = helpCreateAnimates(KNIGHT_HIT_PATH_FORMAT, KNIGHT_HIT_0_FRAME_NAME_FORMAT, KNIGHT_HIT_NUMBER, KNIGHT_HIT_FRAME_NUMBER);
+	_animatesHit = helpCreateAnimates(KNIGHT_HIT_0_FRAME_NAME_FORMAT, KNIGHT_HIT_NUMBER, KNIGHT_HIT_FRAME_NUMBER);
 	return true;
 }
 
@@ -90,7 +92,7 @@ bool CHeroKnight::initIdle1()
 
 bool CHeroKnight::initIdle2()
 {
-	_animatesIdle2 = helpCreateAnimates(KNIGHT_IDLE2_PATH_FORMAT, KNIGHT_IDLE2_0_FRAME_NAME_FORMAT, KNIGHT_IDLE2_NUMBER, KNIGHT_IDLE2_FRAME_NUMBER);
+	_animatesIdle2 = helpCreateAnimates(KNIGHT_IDLE2_0_FRAME_NAME_FORMAT, KNIGHT_IDLE2_NUMBER, KNIGHT_IDLE2_FRAME_NUMBER);
 	return true;
 }
 
@@ -106,19 +108,19 @@ bool CHeroKnight::initRun2()
 
 bool CHeroKnight::initStun()
 {
-	_animatesRun2 = helpCreateAnimates(KNIGHT_RUN2_PATH_FORMAT, KNIGHT_RUN2_0_FRAME_NAME_FORMAT, KNIGHT_RUN2_NUMBER, KNIGHT_RUN2_FRAME_NUMBER);
+	_animatesRun2 = helpCreateAnimates(KNIGHT_RUN2_0_FRAME_NAME_FORMAT, KNIGHT_RUN2_NUMBER, KNIGHT_RUN2_FRAME_NUMBER);
 	return true;
 }
 
 bool CHeroKnight::initAttack1()
 {
-	_animatesAttack1 = helpCreateAnimates(KNIGHT_ATTACK1_PATH_FORMAT, KNIGHT_ATTACK1_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK1_NUMBER, KNIGHT_ATTACK1_FRAME_NUMBER);
+	_animatesAttack1 = helpCreateAnimates(KNIGHT_ATTACK1_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK1_NUMBER, KNIGHT_ATTACK1_FRAME_NUMBER, 0.007f);
 	return true;
 }
 
 bool CHeroKnight::initAttack2()
 {
-	_animatesAttack2 = helpCreateAnimates(KNIGHT_ATTACK2_PATH_FORMAT, KNIGHT_ATTACK2_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK2_NUMBER, KNIGHT_ATTACK2_FRAME_NUMBER);
+	_animatesAttack2 = helpCreateAnimates(KNIGHT_ATTACK2_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK2_NUMBER, KNIGHT_ATTACK2_FRAME_NUMBER, 0.007f);
 	return true;
 }
 

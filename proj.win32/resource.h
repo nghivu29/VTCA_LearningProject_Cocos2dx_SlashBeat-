@@ -71,3 +71,21 @@
 #define KNIGHT_ATTACK2_FRAME_NUMBER 43
 #define KNIGHT_ATTACK2_PATH_FORMAT "res/actor/hero/knight/shield_attack/shield_attack_%d.plist"
 #define KNIGHT_ATTACK2_0_FRAME_NAME_FORMAT "shield_attack_0_%d.png"
+
+// monter
+#define SPHERICALMONTER_PATH "res/actor/enemy/spherical_monter/monster1.plist"
+
+#define SPHERICALMONTER_IDLE_NUMBER 1
+#define SPHERICALMONTER_IDLE_FRAME_NUMBER 2
+#define SPHERICALMONTER_IDLE_FRAME_NAME_FORMAT "idle%d.png"
+
+#define SPHERICALMONTER_JUMP_NUMBER 1
+#define SPHERICALMONTER_JUMP_FRAME_NUMBER 2
+#define SPHERICALMONTER_JUMP_FRAME_NAME_FORMAT "jump%d.png"
+
+#define SPHERICALMONTER_HIT_NUMBER 1
+#define SPHERICALMONTER_HIT_FRAME_NUMBER 1
+#define SPHERICALMONTER_HIT_FRAME_NAME_FORMAT "hit%d.png"
+
+// file backgound
+#define BACKGROUND_PATH "res/bg/forest/bg_forest.png"

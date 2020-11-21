@@ -3,7 +3,7 @@
 #include "proj.win32/resource.h"
 #include "CHero.h"
 #include "CMusicTest.h"
-
+#include "CEnemyManager.h"
 
 class CSceneGameplay : public cocos2d::Scene
 {
@@ -11,6 +11,10 @@ class CSceneGameplay : public cocos2d::Scene
 protected:
 	CHero* _hero;
 	CMusic* _music;
+	CEnemyManager* _enemyManager;
+
+	cocos2d::Vec2 origin;
+	cocos2d::Size visibleSize;
 
 	// các phương thức
 public:
@@ -30,5 +34,7 @@ public:
 
 protected:
 	virtual bool initHero();
+	virtual bool initBackground();
+	virtual bool initEnemyMananager();
 };
 

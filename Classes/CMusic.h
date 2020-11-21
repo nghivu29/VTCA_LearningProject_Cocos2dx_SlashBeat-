@@ -44,6 +44,8 @@ public:
 
 	// có đánh phách hay không
 	bool hasNote();
+	// chưa nghĩ ra thuật toán
+	bool hasNote(int deltaFrame);
 
 	// đánh dấu các mốc thay đổi việc đánh phách. số lượng biến trong va_list = _measures
 	void addChange(int beatStart, bool measure1...);
@@ -74,6 +76,6 @@ public:
 	int getMeasureCurrent();
 	int getBeatCurrent();
 	void logNotesChanges();
-
+	float getFramePerBeat();
 };
 

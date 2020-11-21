@@ -122,7 +122,7 @@ void CAnimateActor::walk2()
 * @frameNumber số lượng frame trong file.plist
 * @delay là thời gian giữa các SpriteFrame
 */
-cocos2d::Animate ** CAnimateActor::helpCreateAnimates(const char* filePathFormat, const char* frameNameFormat, int size, int frameNumber, float delay)
+cocos2d::Animate ** CAnimateActor::helpCreateAnimates(const char* frameNameFormat, int size, int frameNumber, float delay)
 {
 	auto cache = SpriteFrameCache::getInstance();
 	auto animates = new Animate*[size];

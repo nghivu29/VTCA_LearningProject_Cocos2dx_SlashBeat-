@@ -10,7 +10,7 @@ class CAnimateActor
 protected:
 	cocos2d::Animate** _animatesDead;
 	cocos2d::Animate** _animatesHit;
-	cocos2d::Animate** _animatessIdle1;
+	cocos2d::Animate** _animatesIdle1;
 	cocos2d::Animate** _animatesIdle2;
 	cocos2d::Animate** _animatesRun1;
 	cocos2d::Animate** _animatesRun2;
@@ -50,7 +50,7 @@ public:
 	virtual void walk2();
 
 	// giúp tạo animate
-	static cocos2d::Animate** helpCreateAnimates(const char* filePathFormat, const char* frameNameFormat, int size, int frameNumber, float delay = 0.02f);
+	static cocos2d::Animate** helpCreateAnimates(const char* frameNameFormat, int size, int frameNumber, float delay = 0.02f);
 	static bool helpLoadResourceAimates(const char* filePathFormat, int size);
 };
 

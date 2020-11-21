@@ -23,6 +23,8 @@ protected:
 	EActorStatus _status;
 	int _hp;
 
+	int lastStatus = -1;
+
 	// các phương thức
 public:
 	virtual bool init();

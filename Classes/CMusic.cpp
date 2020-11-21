@@ -1,4 +1,4 @@
-#include "CMusic.h"
+﻿#include "CMusic.h"
 
 USING_NS_CC;
 
@@ -37,6 +37,13 @@ bool CMusic::hasNote()
 			return _notesChanges[lastChangeFromBeat][_measureCurrent];
 		}
 	}
+	return false;
+}
+
+// chưa nghĩ ra thuật toán
+bool CMusic::hasNote(int deltaFrame)
+{
+	
 	return false;
 }
 
@@ -129,3 +136,10 @@ void CMusic::logNotesChanges()
 		str = "";
 	}
 }
+
+float CMusic::getFramePerBeat()
+{
+	return f*_measures;
+}
+
+

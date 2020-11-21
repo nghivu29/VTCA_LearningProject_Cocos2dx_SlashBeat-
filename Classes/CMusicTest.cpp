@@ -14,9 +14,9 @@ bool CMusicTest::init()
 	_bpm = 120.0f;
 	_measures = 4;
 	addChange(2, true, false, false, false);
-	addChange(5, true, true, false, true);
 	addChange(7, false, false, false, false);
-	addChange(10, true, true, true, true);
+	addChange(10, true, false, false, true);
+	addChange(15, true, false, true, false);
 
 	return true;
 }

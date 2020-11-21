@@ -22,6 +22,9 @@
     <Filter Include="src\helper">
       <UniqueIdentifier>{43ac76af-3107-440c-92c3-c500f46335f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\manager">
+      <UniqueIdentifier>{4f2d7a5a-8e55-44d7-b7e7-8e69e8ea01a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,6 +57,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CMusicTest.cpp">
       <Filter>src\music</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CObjDependOnMusic.cpp">
+      <Filter>src\music</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CEnemy.cpp">
+      <Filter>src\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CEnemySphericalMonter.cpp">
+      <Filter>src\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CEnemyManager.cpp">
+      <Filter>src\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +103,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\CMusicTest.h">
       <Filter>src\music</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CObjDependOnMusic.h">
+      <Filter>src\music</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CEnemy.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CEnemySphericalMonter.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CEnemyManager.h">
+      <Filter>src\manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
