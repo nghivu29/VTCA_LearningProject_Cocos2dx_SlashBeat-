@@ -12,5 +12,7 @@ public:
 	// loadresouce hero
 	virtual bool loadResource();
 
+private:
+	virtual bool initWin32Ctrl();
 };
 

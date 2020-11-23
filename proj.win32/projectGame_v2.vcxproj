@@ -161,6 +161,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\CLayerOption.cpp" />
     <ClCompile Include="..\Classes\CMusic.cpp" />
     <ClCompile Include="..\Classes\CMusicTest.cpp" />
+    <ClCompile Include="..\Classes\CMusic_Soldiers.cpp" />
     <ClCompile Include="..\Classes\CObjDependOnMusic.cpp" />
     <ClCompile Include="..\Classes\CSceneGameplay.cpp" />
     <ClCompile Include="..\Classes\CSceneLoading.cpp" />
@@ -182,6 +183,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\CLayerOption.h" />
     <ClInclude Include="..\Classes\CMusic.h" />
     <ClInclude Include="..\Classes\CMusicTest.h" />
+    <ClInclude Include="..\Classes\CMusic_Soldiers.h" />
     <ClInclude Include="..\Classes\CObjDependOnMusic.h" />
     <ClInclude Include="..\Classes\CSceneGameplay.h" />
     <ClInclude Include="..\Classes\CSceneLoading.h" />

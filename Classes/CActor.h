@@ -30,5 +30,23 @@ public:
 	virtual bool init();
 	virtual bool loadResource();
 
+	// các hành động của nhân vật
+	virtual void dead();
+	virtual void hit();
+	virtual void idle1();
+	virtual void idle2();
+	virtual void run1();
+	virtual void run2();
+	virtual void stun();
+	virtual void attack1();
+	virtual void attack2();
+	virtual void walk1();
+	virtual void walk2();
+
+	// cac setter va getter
+	void setHp(int hp);
+	void setStatus(EActorStatus status);
+	int getHp();
+	EActorStatus getStatus();
 };
 

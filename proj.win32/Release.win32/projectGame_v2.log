@@ -1,9 +1,10 @@
-﻿  CLayerOption.cpp
+﻿  CMusic_Soldiers.cpp
+  CSceneGameplay.cpp
      Creating library C:\Game_2d\project\projectGame_v2\proj.win32\Release.win32\projectGame_v2.lib and object C:\Game_2d\project\projectGame_v2\proj.win32\Release.win32\projectGame_v2.exp
   Generating code
-  94 of 945 functions ( 9.9%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    9 functions had inline decision re-evaluated but remain unchanged
+  86 of 1027 functions ( 8.4%) were compiled, the rest were copied from previous compilation.
+    9 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   projectGame_v2.vcxproj -> C:\Game_2d\project\projectGame_v2\proj.win32\Release.win32\projectGame_v2.exe
   Performing Custom Build Step

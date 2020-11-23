@@ -1,6 +1,7 @@
 ﻿#include "CSceneGameplay.h"
 #include "CHeroKnight.h"
 #include "CEnemySphericalMonter.h"
+#include "CMusic_Soldiers.h"
 
 USING_NS_CC;
 
@@ -36,7 +37,7 @@ bool CSceneGameplay::init()
 	//enemy->idle1();
 
 	// test music
-	_music = CMusicTest::create();
+	_music = CMusic_Soldiers::create();
 	addChild(_music);
 	_music->retain();
 	_music->playMusic();
@@ -45,28 +46,6 @@ bool CSceneGameplay::init()
 	// để sau khi định nghĩa xong _music
 	initEnemyMananager();
 
-	// code de test animation
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = [this](cocos2d::EventKeyboard::KeyCode k, cocos2d::Event*) {
-		switch (k)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_1:
-			_hero->idle2();
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_2:
-			_hero->run2();
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_3:
-			_hero->attack2();
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_4:
-			_hero->attack1();
-			break;
-		default:
-			break;
-		}
-	};
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	return true;
 }
 
@@ -111,7 +90,7 @@ void CSceneGameplay::update(float delta)
 bool CSceneGameplay::initHero()
 {
 	_hero = CHeroKnight::createKnight();
-	_hero->setPosition(200, 150);
+	_hero->setPosition(300, 70);
 	addChild(_hero);
 	_hero->retain();
 	return true;
@@ -131,7 +110,7 @@ bool CSceneGameplay::initBackground()
 
 bool CSceneGameplay::initEnemyMananager()
 {
-	_enemyManager = new CEnemyManager(_music);
+	_enemyManager = new CEnemyManager(_music, _hero);
 	return true;
 }
 

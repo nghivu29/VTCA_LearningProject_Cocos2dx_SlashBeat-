@@ -82,6 +82,7 @@
     <ClCompile Include="..\Classes\CLayerOption.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CMusic_Soldiers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -140,6 +141,7 @@
     <ClInclude Include="..\Classes\CLayerOption.h">
       <Filter>src\scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\CMusic_Soldiers.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

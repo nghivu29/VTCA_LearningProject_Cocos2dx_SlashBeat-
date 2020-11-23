@@ -5,7 +5,7 @@ class CSceneMainmenu : public cocos2d::Scene
 {
 private:
 	cocos2d::Menu* _menu;
-	cocos2d::MenuItem* itemPauseGame;
+	cocos2d::MenuItem* _itemPauseGame;
 	cocos2d::MenuItem* _itemExitGame;
 
 public:

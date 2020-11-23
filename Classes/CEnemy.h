@@ -7,7 +7,7 @@ class CEnemy : public CActor, public CObjDependOnMusic
 {
 	// các thuộc tính
 protected:
-	cocos2d::Sprite* _spTarget;
+	CActor* _targetActor;
 
 	// các phương thức
 public:
@@ -19,5 +19,8 @@ public:
 
 	// up date status
 	virtual void update(float dt);
+
+	// setter
+	void setTarget(CActor* targetActor);
 };
 

@@ -13,7 +13,7 @@ bool CLayerOption::init()
 {
 	if (!Layer::init())
 		return false;
-
+	
 	auto itemContinue = MenuItemFont::create("Continue", CC_CALLBACK_1(CLayerOption::playContinue, this));
 	itemContinue->setPosition(0, 0);
 	auto itemBack = MenuItemFont::create("Back to main menu", CC_CALLBACK_1(CLayerOption::backScene, this));

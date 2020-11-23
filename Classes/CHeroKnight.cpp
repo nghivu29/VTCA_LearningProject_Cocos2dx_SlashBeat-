@@ -25,6 +25,7 @@ void CHeroKnight::dead()
 
 void CHeroKnight::hit()
 {
+	CHero::hit();
 	stopAllActions();
 	runAction(_animatesHit[0]);
 }
@@ -35,17 +36,19 @@ void CHeroKnight::idle1()
 
 void CHeroKnight::idle2()
 {
+	CHero::idle2();
 	stopAllActions();
 	runAction(RepeatForever::create(_animatesIdle2[0]));
 }
 
 void CHeroKnight::run1()
 {
-	
+		
 }
 
 void CHeroKnight::run2()
 {
+	CHero::run2();
 	stopAllActions();
 	runAction(RepeatForever::create(_animatesRun2[0]));
 }
@@ -56,14 +59,17 @@ void CHeroKnight::stun()
 
 void CHeroKnight::attack1()
 {
+	CHero::attack1();
 	stopAllActions();
-	runAction(_animatesAttack1[0]);
+	runAction(Sequence::create(_animatesAttack1[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2,this)), nullptr));
 }
 
 void CHeroKnight::attack2()
 {
+	CHero::attack2();
 	stopAllActions();
-	runAction(_animatesAttack2[0]);
+	runAction(Sequence::create(_animatesAttack2[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
+
 }
 
 void CHeroKnight::walk1()
