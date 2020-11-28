@@ -61,6 +61,14 @@ void CActor::attack2()
 	_status = ATTACK2;
 }
 
+void CActor::jumpUP()
+{
+}
+
+void CActor::jumpDown()
+{
+}
+
 void CActor::walk1()
 {
 	_status = WALK1;

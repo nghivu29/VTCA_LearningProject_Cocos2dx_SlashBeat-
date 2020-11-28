@@ -50,10 +50,48 @@ endif()
 list(APPEND GAME_SOURCE
      Classes/AppDelegate.cpp
      Classes/HelloWorldScene.cpp
+        Classes/CActor.cpp
+        Classes/CAnimateActor.cpp
+        Classes/CEnemy.cpp
+        Classes/CEnemyManager.cpp
+        Classes/CEnemyRock.cpp
+        Classes/CEnemySphericalMonter.cpp
+        Classes/CHelper.cpp
+        Classes/CHero.cpp
+        Classes/CHeroKnight.cpp
+        Classes/CLayerOption.cpp
+        Classes/CMusic.cpp
+        Classes/CMusic_Soldiers.cpp
+        Classes/CMusicTest.cpp
+        Classes/CObjDependOnMusic.cpp
+        Classes/CSceneGameplay.cpp
+        Classes/CSceneLoading.cpp
+        Classes/CSceneMainmenu.cpp
+        Classes/CSceneSplash.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
      Classes/HelloWorldScene.h
+        Classes/common.h
+        Classes/CActor.h
+        Classes/CAnimateActor.h
+        Classes/CEnemy.h
+        Classes/CEnemyManager.h
+        Classes/CEnemyRock.h
+        Classes/CEnemySphericalMonter.h
+        Classes/CHelper.h
+        Classes/CHero.h
+        Classes/CHeroKnight.h
+        Classes/CLayerOption.h
+        Classes/CMusic.h
+        Classes/CMusic_Soldiers.h
+        Classes/CMusicTest.h
+        Classes/CObjDependOnMusic.h
+        Classes/CSceneGameplay.h
+        Classes/CSceneLoading.h
+        Classes/CSceneMainmenu.h
+        Classes/CSceneSplash.h
+
      )
 
 if(ANDROID)

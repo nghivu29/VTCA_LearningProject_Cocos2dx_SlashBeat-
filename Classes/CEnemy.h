@@ -2,12 +2,31 @@
 #include "CObjDependOnMusic.h"
 #include "CActor.h"
 
+enum EEnemyType
+{
+	SOFT,
+	HARD
+};
+
+enum EEnemy
+{
+	NOPE,
+	SPHERICAL_MONSTER_1,
+	ROCK_MONSTER_1,
+	SPHERICAL_MONSTER_2,
+	ROCK_MONSTER_2
+};
 
 class CEnemy : public CActor, public CObjDependOnMusic
 {
 	// các thuộc tính
 protected:
+	// mục tiêu tấn công của quái
 	CActor* _targetActor;
+	// loại quái cứng phải dùng khiên để phá, loại quái mềm dùng kiếm chém
+	EEnemyType _type;
+	// tên chủng loài của quái, dùng để tạo đúng quái đúng thời điểm ở thuộc tính map trong lớp CMusic
+	EEnemy _enemyName;
 
 	// các phương thức
 public:
@@ -22,5 +41,7 @@ public:
 
 	// setter
 	void setTarget(CActor* targetActor);
+	void setType(EEnemyType type);
+	void setName(EEnemy name);
 };
 

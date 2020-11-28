@@ -9,7 +9,6 @@ void CMusic::playMusic()
 		resetMusic();
 		SimpleAudioEngine::getInstance()->playBackgroundMusic(_fileName.c_str());
 		schedule(schedule_selector(CMusic::update), 1/_fps);
-		//scheduleUpdate();
 	}
 }
 
@@ -23,7 +22,7 @@ void CMusic::resetMusic()
 	_beatCurrent = 0;
 }
 
-bool CMusic::hasNote()
+int CMusic::hasNote()
 {
 	if (_notesChanges[_beatCurrent].size() != 0)
 	{
@@ -37,7 +36,7 @@ bool CMusic::hasNote()
 			return _notesChanges[lastChangeFromBeat][_measureCurrent];
 		}
 	}
-	return false;
+	return 0;
 }
 
 // chưa nghĩ ra thuật toán
@@ -47,13 +46,13 @@ bool CMusic::hasNote(int deltaFrame)
 	return false;
 }
 
-void CMusic::addChange(int beatStart, bool measure1 ...)
+void CMusic::addChange(int beatStart,  ...)
 {
 	va_list ap;
 	va_start(ap, beatStart);
 	for (size_t i = 0; i < _measures; i++)
 	{
-		_notesChanges[beatStart].push_back(va_arg(ap, bool));
+		_notesChanges[beatStart].push_back(va_arg(ap, int));
 	}
 	va_end(ap);
 }
@@ -125,16 +124,16 @@ int CMusic::getBeatCurrent()
 
 void CMusic::logNotesChanges()
 {
-	std::string str = "";
-	for (auto i = _notesChanges.begin(); i != _notesChanges.end() ; i++)
-	{
-		for (size_t j = 0; j < _measures; j++)
-		{
-			str += StringUtils::format("%d|%s ", j, (*i).second.at(j) ? "true":"false" );
-		}
-		log("beat %d: %s", (*i).first, str);
-		str = "";
-	}
+//	std::string str = "";
+//	for (auto i = _notesChanges.begin(); i != _notesChanges.end() ; i++)
+//	{
+//		for (size_t j = 0; j < _measures; j++)
+//		{
+//			str += StringUtils::format("%d|%s ", j, (*i).second.at(j) ? "true":"false" );
+//		}
+//		log("beat %d: %s", (*i).first, str);
+//		str = "";
+//	}
 }
 
 float CMusic::getFramePerBeat()

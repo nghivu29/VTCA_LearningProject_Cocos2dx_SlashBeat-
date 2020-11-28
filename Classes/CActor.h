@@ -13,7 +13,9 @@ enum EActorStatus
 	ATTACK1,
 	ATTACK2,
 	WALK1,
-	WALK2
+	WALK2,
+	JUMPUP,
+	JUMPDOWN
 };
 
 class CActor : public cocos2d::Sprite, public CAnimateActor
@@ -40,6 +42,8 @@ public:
 	virtual void stun();
 	virtual void attack1();
 	virtual void attack2();
+	virtual void jumpUP();
+	virtual void jumpDown();
 	virtual void walk1();
 	virtual void walk2();
 

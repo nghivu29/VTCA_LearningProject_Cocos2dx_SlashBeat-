@@ -2,6 +2,7 @@
 #include "CHeroKnight.h"
 #include "CEnemySphericalMonter.h"
 #include "CMusic_Soldiers.h"
+#include "CEnemyRock.h"
 
 USING_NS_CC;
 
@@ -28,16 +29,9 @@ bool CSceneGameplay::init()
 	initLayerOption();
 	initBtnPause();
 
-	//// test enemy
-	//auto enemy = CEnemySphericalMonter::createMonster();
-	//enemy->retain();
-	//enemy->setPosition(500, 150);
-	//addChild(enemy);
-	////enemy->hit();
-	//enemy->idle1();
-
 	// test music
-	_music = CMusic_Soldiers::create();
+	//_music = CMusic_Soldiers::create();
+	_music = CMusicTest::create();
 	addChild(_music);
 	_music->retain();
 	_music->playMusic();
@@ -45,6 +39,11 @@ bool CSceneGameplay::init()
 
 	// để sau khi định nghĩa xong _music
 	initEnemyMananager();
+
+	// test enemy rock 
+	/*auto rock = CEnemyRock::createEnemy();
+	rock->setPosition(500, 200);
+	addChild(rock);*/
 
 	return true;
 }
@@ -90,7 +89,7 @@ void CSceneGameplay::update(float delta)
 bool CSceneGameplay::initHero()
 {
 	_hero = CHeroKnight::createKnight();
-	_hero->setPosition(300, 70);
+	_hero->setPosition(origin + Vec2(HERO_POS_X, visibleSize.height*GROUND1_POS_Y_RATIO));
 	addChild(_hero);
 	_hero->retain();
 	return true;

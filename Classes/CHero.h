@@ -3,6 +3,8 @@
 
 class CHero : public CActor
 {
+	cocos2d::Vec2 center_scene;
+
 	// các phương thức
 public:
 	static CHero* createHero();
@@ -14,5 +16,7 @@ public:
 
 private:
 	virtual bool initWin32Ctrl();
+	virtual bool initAndroidCtrl();
+	virtual bool initCtrl();
 };
 

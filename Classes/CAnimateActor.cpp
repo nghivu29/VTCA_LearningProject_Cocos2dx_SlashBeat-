@@ -1,5 +1,5 @@
 ﻿#include "CAnimateActor.h"
-#include "proj.win32/resource.h"
+	#include "common.h"
 
 USING_NS_CC;
 

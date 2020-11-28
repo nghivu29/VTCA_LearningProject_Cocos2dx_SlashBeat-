@@ -26,9 +26,13 @@ void CEnemy::update(float dt)
 
 	if (getBoundingBox().intersectsRect(_targetActor->getBoundingBox())) 
 	{
-		if (e_x > h_x-h_x/2)
+		if (e_x > h_x-h_w/2)
 		{
-			if (_targetActor->getStatus() == EActorStatus::ATTACK1 || _targetActor->getStatus() == EActorStatus::ATTACK2) 
+			if 
+				(
+					(_targetActor->getStatus() == EActorStatus::ATTACK1 && _type == EEnemyType::SOFT) || 
+					(_targetActor->getStatus() == EActorStatus::ATTACK2 && _type == EEnemyType::HARD)
+				) 
 			{
 				_status = EActorStatus::HIT;
 			}
@@ -67,4 +71,14 @@ void CEnemy::update(float dt)
 void CEnemy::setTarget(CActor * targetActor)
 {
 	_targetActor = targetActor;
+}
+
+void CEnemy::setType(EEnemyType type)
+{
+	_type = type;
+}
+
+void CEnemy::setName(EEnemy name)
+{
+	_enemyName = name;
 }

@@ -1,5 +1,5 @@
 #include "CHeroKnight.h"
-#include "proj.win32/resource.h"
+#include "common.h"
 USING_NS_CC;
 
 CHeroKnight * CHeroKnight::createKnight()
@@ -13,9 +13,11 @@ bool CHeroKnight::init()
 	{
 		return false;
 	}
+
+	setScale(KNIGHT_RATIO_H);
+
 	SpriteFrameCache::getInstance()->destroyInstance();
-	setScale(0.3f);
-	
+
 	return true;
 }
 

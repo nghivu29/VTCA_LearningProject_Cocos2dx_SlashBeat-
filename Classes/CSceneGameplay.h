@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "cocos2d.h"
-#include "proj.win32/resource.h"
+#include "common.h"
 #include "CHero.h"
 #include "CMusicTest.h"
 #include "CEnemyManager.h"

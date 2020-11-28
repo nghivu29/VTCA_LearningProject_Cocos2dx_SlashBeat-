@@ -23,7 +23,7 @@ protected:
 	int _beatCurrent;
 
 	// mảng đánh dấu
-	std::map < int, std::vector<bool> > _notesChanges;
+	std::map < int, std::vector<int> > _notesChanges;
 
 	// các biến hỗ trợ tính toán
 
@@ -43,12 +43,12 @@ public:
 	void resetMusic();
 
 	// có đánh phách hay không
-	bool hasNote();
+	int hasNote();
 	// chưa nghĩ ra thuật toán
 	bool hasNote(int deltaFrame);
 
 	// đánh dấu các mốc thay đổi việc đánh phách. số lượng biến trong va_list = _measures
-	void addChange(int beatStart, bool measure1...);
+	void addChange(int beatStart, ...);
 
 	// định nghĩa cho nhạc
 	virtual bool init();

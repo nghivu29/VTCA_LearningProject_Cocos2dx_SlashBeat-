@@ -1,5 +1,5 @@
 #include "CEnemySphericalMonter.h"
-#include "proj.win32/resource.h"
+#include "common.h"
 
 USING_NS_CC;
 
@@ -12,7 +12,8 @@ bool CEnemySphericalMonter::init()
 {
 	if (! (CEnemy::init() && CAnimateActor::initAnimate()))
 		return false;
-	setScale(0.5);
+	setScale(SPHERICAL_MONTER_RATIO_H);
+	_type = EEnemyType::SOFT;
 	SpriteFrameCache::getInstance()->destroyInstance();
 	return true;
 }
