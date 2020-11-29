@@ -68,6 +68,7 @@ list(APPEND GAME_SOURCE
         Classes/CSceneLoading.cpp
         Classes/CSceneMainmenu.cpp
         Classes/CSceneSplash.cpp
+        Classes/InfiniteParallaxNode.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -91,7 +92,7 @@ list(APPEND GAME_HEADER
         Classes/CSceneLoading.h
         Classes/CSceneMainmenu.h
         Classes/CSceneSplash.h
-
+        Classes/InfiniteParallaxNode.h
      )
 
 if(ANDROID)

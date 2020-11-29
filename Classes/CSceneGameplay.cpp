@@ -60,50 +60,57 @@ bool CSceneGameplay::loadResource()
 void CSceneGameplay::update(float delta)
 {
 	_enemyManager->updateEnemies(delta);
-	
 
-	//log("%d", _music->getFrameCurrent());
-	/*if (_music->hasNote())
-	{
-		switch (_music->getMeasureCurrent())
-		{
-		case 0:
-			log("%d-%d===================================================", _music->getBeatCurrent(), _music->getMeasureCurrent());
-			break;
-		case 1:
-			log("%d-%d======================", _music->getBeatCurrent(), _music->getMeasureCurrent());
-			break;
-		case 2:
-			log("%d-%d===========================", _music->getBeatCurrent(), _music->getMeasureCurrent());
-			break;
-		case 3:
-			log("%d-%d=========================", _music->getBeatCurrent(), _music->getMeasureCurrent());
-			break;
-
-		}
-	}*/
-
-
+	// update backgound
+	Point scrollDecrement = Point(15, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
+	_backgroundElements->setPosition(_backgroundElements->getPosition() - scrollDecrement);
+	_backgroundElements->updatePosition();
+	_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
+	_frontgroundElements->updatePosition();
 }
 
 bool CSceneGameplay::initHero()
 {
 	_hero = CHeroKnight::createKnight();
 	_hero->setPosition(origin + Vec2(HERO_POS_X, visibleSize.height*GROUND1_POS_Y_RATIO));
-	addChild(_hero);
+	addChild(_hero, 0);
 	_hero->retain();
 	return true;
 }
 
 bool CSceneGameplay::initBackground()
 {
-	auto bg = Sprite::create(BACKGROUND_PATH);
-	bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
-	auto ratioWidth = visibleSize.width / bg->getContentSize().width;
-	auto ratioHeght = visibleSize.height / bg->getContentSize().height;
-	bg->setScaleX(ratioWidth);
-	bg->setScaleY(ratioHeght);
-	this->addChild(bg, -10);
+
+	/*auto bg = Sprite::create("res/bg/forest/Parallax Forest Background - Blue/10_Sky.png");
+	auto middle_layer = Sprite::create("res/bg/forest/Parallax Forest Background - Blue/09_Forest.png");
+	auto top_layer = Sprite::create("res/bg/forest/Parallax Forest Background - Blue/08_Forest.png");
+	*/
+
+	// Ảnh Background
+
+	// Tạo 1 đối tượng Parallax
+	_backgroundElements = InfiniteParallaxNode::create();
+	_backgroundElements->setPosition(origin.x, origin.y);
+
+	_frontgroundElements = InfiniteParallaxNode::create();
+	_frontgroundElements->setPosition(origin.x, origin.y);
+	
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/10_Sky.png", 0, Vec2(0.05, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/09_Forest.png", 1, Vec2(0.1, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/08_Forest.png", 2, Vec2(0.2, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/07_Forest.png", 3, Vec2(0.3, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/06_Forest.png", 4, Vec2(0.4, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/05_Particles.png", 5, Vec2(0.5, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/04_Forest.png", 6, Vec2(0.6, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/03_Particles.png", 1, Vec2(0.7, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/02_Bushes.png", 2, Vec2(0.8, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/01_Mist.png", 3, Vec2(0.9, 1));
+	
+	addChild(_backgroundElements, -5);
+	addChild(_frontgroundElements, 5);
+
+	scheduleUpdate();
+
 	return true;
 }
 
@@ -142,3 +149,15 @@ void CSceneGameplay::pauseGame(cocos2d::Ref *)
 	Director::getInstance()->pause();
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 }
+
+void CSceneGameplay::helpInitParallaxLayer(InfiniteParallaxNode* parallax, const std::string & fileName, int z, cocos2d::Vec2 ratio, float distance)
+{
+	for (size_t i = 0; i < 2; i++)
+	{
+		auto sp = Sprite::create(fileName);
+		sp->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+		sp->setScale(visibleSize.width / sp->getContentSize().width, visibleSize.height / sp->getContentSize().height);
+		parallax->addChild(sp, z, ratio, Vec2(sp->getContentSize().width*sp->getScaleX()*i + distance,0));
+	}
+}
+

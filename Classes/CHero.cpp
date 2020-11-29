@@ -19,6 +19,7 @@ bool CHero::init()
 	setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	
 	initCtrl();
+	scheduleUpdate();
 
 	return true;
 }
@@ -26,6 +27,19 @@ bool CHero::init()
 bool CHero::loadResource()
 {
 	return true;
+}
+
+void CHero::update(float dt)
+{
+	if (getPosition().y > HERO_POS_DOWN.y)
+	{
+		_frameFly++;
+		if (_frameFly == 90)
+		{
+			setPosition(HERO_POS_DOWN);
+			_frameFly = 0;
+		}
+	}
 }
 
 bool CHero::initWin32Ctrl()
@@ -49,10 +63,12 @@ bool CHero::initWin32Ctrl()
 			attack2();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_5:
+			_frameFly = 0;
 			setPosition(HERO_POS_UP);
 			attack1();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_4:
+			_frameFly = 0;
 			setPosition(HERO_POS_UP);
 			attack2();
 			break;
@@ -79,6 +95,7 @@ bool CHero::initAndroidCtrl()
 
 		if (t->getLocation().y > center_scene.y)
 		{
+			_frameFly = 0;
 			if (t->getLocation().x > center_scene.x)
 			{
 				setPosition(HERO_POS_UP);

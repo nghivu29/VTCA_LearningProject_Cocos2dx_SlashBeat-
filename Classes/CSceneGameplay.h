@@ -5,6 +5,7 @@
 #include "CMusicTest.h"
 #include "CEnemyManager.h"
 #include "CLayerOption.h"
+#include "InfiniteParallaxNode.h"
 
 class CSceneGameplay : public cocos2d::Scene
 {
@@ -16,9 +17,14 @@ protected:
 
 	cocos2d::Menu* _menuCtrl;
 	CLayerOption* _layerOption;
+	cocos2d::ParallaxNode* paraBg;
+	cocos2d::ParallaxNode* paraBg2;
+	InfiniteParallaxNode* _backgroundElements;
+	InfiniteParallaxNode* _frontgroundElements;
 
 	cocos2d::Vec2 origin;
 	cocos2d::Size visibleSize;
+	int _frameHeroFly = 0;
 
 	// các phương thức
 public:
@@ -44,5 +50,7 @@ protected:
 	virtual bool initLayerOption();
 
 	void pauseGame(cocos2d::Ref*);
+
+	void helpInitParallaxLayer(InfiniteParallaxNode* parallax, const std::string &fileName, int z, cocos2d::Vec2 ratio, float distance = 0);
 };
 
