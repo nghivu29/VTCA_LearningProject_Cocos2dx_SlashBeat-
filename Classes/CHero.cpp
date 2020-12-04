@@ -40,12 +40,22 @@ void CHero::update(float dt)
 			_frameFly = 0;
 		}
 	}
+
+	if (_hp <= 0 && lastStatus != DEAD)
+	{
+		dead();
+		lastStatus = DEAD;
+	}
 }
 
 bool CHero::initWin32Ctrl()
 {
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = [this](cocos2d::EventKeyboard::KeyCode k, cocos2d::Event*) {
+		if (_status == DEAD)
+			return false;
+		
+		
 		switch (k)
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_7:
@@ -55,21 +65,42 @@ bool CHero::initWin32Ctrl()
 			run2();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_2:
-			setPosition(HERO_POS_DOWN);
+			if (getPosition() == HERO_POS_UP)
+			{
+				runTeleEffect();
+				setPosition(HERO_POS_DOWN);
+				runAfterTeleEffect();
+			}
 			attack1();
 			break;
+
 		case cocos2d::EventKeyboard::KeyCode::KEY_1:
-			setPosition(HERO_POS_DOWN);
+			if (getPosition() == HERO_POS_UP)
+			{
+				runTeleEffect();
+				setPosition(HERO_POS_DOWN);
+				runAfterTeleEffect();
+			}
 			attack2();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_5:
 			_frameFly = 0;
-			setPosition(HERO_POS_UP);
+			if (getPosition() == HERO_POS_DOWN)
+			{
+				runTeleEffect();
+				setPosition(HERO_POS_UP);
+				runAfterTeleEffect();
+			}
 			attack1();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_4:
 			_frameFly = 0;
-			setPosition(HERO_POS_UP);
+			if (getPosition() == HERO_POS_DOWN)
+			{
+				runTeleEffect();
+				setPosition(HERO_POS_UP);
+				runAfterTeleEffect();
+			}
 			attack2();
 			break;
 		default:
@@ -92,6 +123,8 @@ bool CHero::initAndroidCtrl()
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [this](Touch* t, Event*)
 	{
+		if (_status == DEAD)
+			return false;
 
 		if (t->getLocation().y > center_scene.y)
 		{
@@ -141,6 +174,52 @@ bool CHero::initCtrl()
 		break;
 	}
 	return true;
+}
+
+void CHero::runTeleEffect()
+{
+	auto scene = Director::getInstance()->getRunningScene();
+	Sprite* duAnh;
+	duAnh = Sprite::createWithSpriteFrame(this->getDisplayFrame());
+	duAnh->setColor(Color3B::BLACK);
+	duAnh->setOpacity(50);
+	duAnh->setScale(this->getScale());
+	duAnh->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	duAnh->setPosition(this->getPosition());
+	scene->addChild(duAnh);
+	duAnh->runAction(MoveBy::create(0.2, Vec2(-30, 10)));
+	duAnh->runAction(FadeOut::create(0.3));
+	duAnh->runAction(ScaleBy::create(0.3, 0.9));
+
+
+	auto duAnh2 = Sprite::createWithSpriteFrame(duAnh->getDisplayFrame());
+	duAnh2->setColor(Color3B::BLACK);
+	duAnh2->setOpacity(70);
+	duAnh2->setScale(this->getScale());
+	duAnh2->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	duAnh2->setPosition(this->getPosition());
+	scene->addChild(duAnh2);
+	duAnh2->runAction(MoveBy::create(0.3, Vec2(30, -10)));
+	duAnh2->runAction(FadeOut::create(0.6));
+	duAnh2->runAction(ScaleBy::create(0.6, 1.1));
+
+
+}
+
+void CHero::runAfterTeleEffect()
+{
+	auto scene = Director::getInstance()->getRunningScene();
+	Sprite* duAnh;
+	duAnh = Sprite::createWithSpriteFrame(this->getDisplayFrame());
+	duAnh->setColor(Color3B::BLACK);
+	duAnh->setOpacity(200);
+	duAnh->setScale(this->getScale());
+	duAnh->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
+	duAnh->setPosition(this->getPosition());
+	scene->addChild(duAnh, 1);
+	duAnh->runAction(MoveBy::create(0.5, Vec2(-25, 0)));
+	duAnh->runAction(ScaleBy::create(0.2, 1.05));
+	duAnh->runAction(FadeOut::create(0.2));
 }
 
 

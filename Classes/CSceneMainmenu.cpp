@@ -16,10 +16,13 @@ bool CSceneMainmenu::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
 	_itemPauseGame = MenuItemFont::create("Start Game", CC_CALLBACK_1(CSceneMainmenu::startGame, this));
+	_itemPauseGame->setScale(3);
 	_itemExitGame = MenuItemFont::create("Exit", CC_CALLBACK_1(CSceneMainmenu::exit, this));
-	_itemExitGame->setPosition(_itemPauseGame->getPosition() - Vec2(0, _itemPauseGame->getContentSize().height));
+	_itemExitGame->setScale(3);
+	
+	_itemExitGame->setPosition(_itemPauseGame->getPosition() - Vec2(0, _itemPauseGame->getContentSize().height * _itemPauseGame->getScale()));
+	
 
 	Vector<MenuItem*> vector;
 	vector.pushBack(_itemPauseGame);

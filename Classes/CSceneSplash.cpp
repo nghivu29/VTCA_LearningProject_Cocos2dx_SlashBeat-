@@ -16,6 +16,7 @@ bool CSceneSplash::init()
 
 	initIntro();
 	gotoSceneByTouch(nullptr);
+
 	return true;
 }
 

@@ -4,10 +4,12 @@ USING_NS_CC;
 
 void CMusic::playMusic()
 {
-	f = (_fps*_bpm) / (60 * _measures);
+	//f = (_fps*_bpm) / (60 * _measures);
+	f = (_fps * 60) / (_bpm*_measures);
 	if (!_fileName.empty()) {
 		resetMusic();
-		SimpleAudioEngine::getInstance()->playBackgroundMusic(_fileName.c_str());
+		//SimpleAudioEngine::getInstance()->playBackgroundMusic(_fileName.c_str());
+		SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 		schedule(schedule_selector(CMusic::update), 1/_fps);
 	}
 }
@@ -139,6 +141,16 @@ void CMusic::logNotesChanges()
 float CMusic::getFramePerBeat()
 {
 	return f*_measures;
+}
+
+int CMusic::getDistance()
+{
+	return _distance;
+}
+
+int CMusic::getBeatDelay()
+{
+	return _beatDelay;
 }
 
 

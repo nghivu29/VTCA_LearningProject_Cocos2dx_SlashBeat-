@@ -24,6 +24,7 @@ void CActor::dead()
 void CActor::hit()
 {
 	_status = HIT;
+	_hp--;
 }
 
 void CActor::idle1()

@@ -19,6 +19,21 @@ bool CEnemy::loadResource()
 
 void CEnemy::update(float dt)
  {
+	if (getPosition().y > 700) {
+		this->unscheduleUpdate();
+		this->removeFromParent();
+		this->release();
+		//this->autorelease();
+		return;
+	}
+
+	if (_targetActor->getStatus() == DEAD)
+	{
+		stopAllActions();
+		return;
+	}
+
+
 	float e_x = getPosition().x;
 	float e_w = getContentSize().width;
 	float h_x = _targetActor->getPosition().x;
@@ -46,7 +61,6 @@ void CEnemy::update(float dt)
 	{
 		_status = EActorStatus::IDLE1;
 	}
-	
 
 
 	if (_status != lastStatus)

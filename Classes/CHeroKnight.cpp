@@ -15,6 +15,7 @@ bool CHeroKnight::init()
 	}
 
 	setScale(KNIGHT_RATIO_H);
+	_hp = 10;
 
 	SpriteFrameCache::getInstance()->destroyInstance();
 
@@ -23,13 +24,27 @@ bool CHeroKnight::init()
 
 void CHeroKnight::dead()
 {
+	CHero::dead();
+	stopAllActions();
+	runAction(Sequence::create
+	(
+		CallFunc::create
+		(
+			[this]() 
+			{
+				Director::getInstance()->getRunningScene()->pauseSchedulerAndActions();
+			}
+		),
+		_animatesDead[0],
+		nullptr
+	));
 }
 
 void CHeroKnight::hit()
 {
 	CHero::hit();
 	stopAllActions();
-	runAction(_animatesHit[0]);
+	runAction(Sequence::create(_animatesHit[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
 }
 
 void CHeroKnight::idle1()
@@ -84,7 +99,8 @@ void CHeroKnight::walk2()
 
 bool CHeroKnight::initDead()
 {
-	return false;
+	_animatesDead = helpCreateAnimates(KNIGHT_DEAD_0_FRAME_NAME_FORMAT, KNIGHT_DEAD_NUMBER, KNIGHT_DEAD_FRAME_NUMBER, 0.05f);
+	return true;
 }
 
 bool CHeroKnight::initHit()
@@ -111,13 +127,13 @@ bool CHeroKnight::initRun1()
 
 bool CHeroKnight::initRun2()
 {
-	return false;
+	_animatesRun2 = helpCreateAnimates(KNIGHT_RUN2_0_FRAME_NAME_FORMAT, KNIGHT_RUN2_NUMBER, KNIGHT_RUN2_FRAME_NUMBER, 0.018f);
+	return true;
 }
 
 bool CHeroKnight::initStun()
 {
-	_animatesRun2 = helpCreateAnimates(KNIGHT_RUN2_0_FRAME_NAME_FORMAT, KNIGHT_RUN2_NUMBER, KNIGHT_RUN2_FRAME_NUMBER);
-	return true;
+	return false;
 }
 
 bool CHeroKnight::initAttack1()
@@ -158,6 +174,10 @@ bool CHeroKnight::loadResource()
 
 	// load resource animation attack1
 	CAnimateActor::helpLoadResourceAimates(KNIGHT_ATTACK2_PATH_FORMAT, KNIGHT_ATTACK2_NUMBER);
+
+	// load resource animation dead
+	CAnimateActor::helpLoadResourceAimates(KNIGHT_DEAD_PATH_FORMAT, KNIGHT_DEAD_NUMBER);
+
 
 	return true;
 }

@@ -1,6 +1,8 @@
 #include "CSceneLoading.h"
 #include "ui/CocosGUI.h"
 
+
+
 USING_NS_CC;
 
 CSceneLoading * CSceneLoading::createScene()

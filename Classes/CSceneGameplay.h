@@ -11,9 +11,13 @@ class CSceneGameplay : public cocos2d::Scene
 {
 	// các thuộc tính
 protected:
+	int _gameStatus;
 	CHero* _hero;
 	CMusic* _music;
 	CEnemyManager* _enemyManager;
+
+	// bien dung de test
+	cocos2d::Label* _test;
 
 	cocos2d::Menu* _menuCtrl;
 	CLayerOption* _layerOption;

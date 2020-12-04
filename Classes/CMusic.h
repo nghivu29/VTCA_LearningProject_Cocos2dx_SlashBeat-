@@ -21,6 +21,10 @@ protected:
 	int _measureCurrent;
 	// nhịp hiện tại. bắt đầu từ 0
 	int _beatCurrent;
+	// khoang cach xuat hien cua Enemy so voi Hero. Khoang cach cang lon toc do quai di chuyen cang nhanh
+	int _distance = 2000;
+	// độ trễ của nốt đầu tiên suất hiện. Đơn vị là beat. Bắt buột > 1
+	int _beatDelay = 4;
 
 	// mảng đánh dấu
 	std::map < int, std::vector<int> > _notesChanges;
@@ -30,7 +34,7 @@ protected:
 	// beat cuối cùng bị thay đổi
 	int lastChangeFromBeat = -1;
 
-	// số frame trên 1 phách; f = (_fps*_bpm)/(60*_measures)
+	// số frame trên 1 phách; f = (_fps * 60) / (_bpm*_measures)
 	float f;
 	// đếm số frame trong 1 phách
 	int count;
@@ -77,5 +81,8 @@ public:
 	int getBeatCurrent();
 	void logNotesChanges();
 	float getFramePerBeat();
+	int getDistance();
+	int getBeatDelay();
+
 };
 

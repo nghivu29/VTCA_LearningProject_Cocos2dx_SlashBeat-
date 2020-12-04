@@ -27,5 +27,9 @@ protected:
 	virtual bool initWin32Ctrl();
 	virtual bool initAndroidCtrl();
 	virtual bool initCtrl();
+
+	virtual void runTeleEffect();
+	virtual void runAfterTeleEffect();
+
 };
 

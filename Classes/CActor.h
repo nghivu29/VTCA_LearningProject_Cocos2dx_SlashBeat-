@@ -3,6 +3,7 @@
 
 enum EActorStatus
 {
+	NONE,
 	DEAD,
 	HIT,
 	IDLE1,

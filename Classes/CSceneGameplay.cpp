@@ -29,9 +29,15 @@ bool CSceneGameplay::init()
 	initLayerOption();
 	initBtnPause();
 
+	// lable test
+	_test = Label::createWithTTF("0", "fonts/Marker Felt.ttf", 50);
+	_test->setColor(Color3B::RED);
+	_test->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - 100);
+	addChild(_test, 10);
+
 	// test music
-	//_music = CMusic_Soldiers::create();
-	_music = CMusicTest::create();
+	_music = CMusic_Soldiers::create();
+//	_music = CMusicTest::create();
 	addChild(_music);
 	_music->retain();
 	_music->playMusic();
@@ -44,6 +50,7 @@ bool CSceneGameplay::init()
 	/*auto rock = CEnemyRock::createEnemy();
 	rock->setPosition(500, 200);
 	addChild(rock);*/
+
 
 	return true;
 }
@@ -62,11 +69,14 @@ void CSceneGameplay::update(float delta)
 	_enemyManager->updateEnemies(delta);
 
 	// update backgound
-	Point scrollDecrement = Point(15, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
+	Point scrollDecrement = Point(25, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
 	_backgroundElements->setPosition(_backgroundElements->getPosition() - scrollDecrement);
 	_backgroundElements->updatePosition();
 	_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
 	_frontgroundElements->updatePosition();
+
+	//test
+	_test->setString(StringUtils::format("%d", _music->getBeatCurrent()));
 }
 
 bool CSceneGameplay::initHero()
@@ -75,6 +85,7 @@ bool CSceneGameplay::initHero()
 	_hero->setPosition(origin + Vec2(HERO_POS_X, visibleSize.height*GROUND1_POS_Y_RATIO));
 	addChild(_hero, 0);
 	_hero->retain();
+	_hero->run2();
 	return true;
 }
 
