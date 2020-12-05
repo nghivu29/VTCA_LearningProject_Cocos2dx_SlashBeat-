@@ -94,6 +94,7 @@
 
 // file backgound
 #define BACKGROUND_PATH "res/bg/forest/bg_forest.png"
+#define MAP_TILE_MOSSY_PATH "res/map_tile/mossy/tile_0.plist"
 
 
 // tên game

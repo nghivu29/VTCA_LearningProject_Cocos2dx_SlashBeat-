@@ -1,6 +1,7 @@
 #include "CSceneMainmenu.h"
 #include "CSceneGameplay.h"
 
+
 USING_NS_CC;
 
 CSceneMainmenu * CSceneMainmenu::createScene()
@@ -31,6 +32,8 @@ bool CSceneMainmenu::init()
 	_menu->retain();
 	_menu->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 	addChild(_menu);
+
+
 
 	return true;
 }

@@ -3,6 +3,7 @@
 #include "CEnemySphericalMonter.h"
 #include "CMusic_Soldiers.h"
 #include "CEnemyRock.h"
+#include "CAssetMossy.h"
 
 USING_NS_CC;
 
@@ -46,11 +47,21 @@ bool CSceneGameplay::init()
 	// để sau khi định nghĩa xong _music
 	initEnemyMananager();
 
-	// test enemy rock 
-	/*auto rock = CEnemyRock::createEnemy();
-	rock->setPosition(500, 200);
-	addChild(rock);*/
+	// test duong
+	auto sp = CAssetMossy::createMossy("01");
+	sp->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+	sp->setPosition(origin + Vec2(HERO_POS_X - 50, visibleSize.height*GROUND1_POS_Y_RATIO + 20));
+	addChild(sp, 2);
+	
+	auto sp1 = CAssetMossy::createMossy("01");
+	sp1->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+	sp1->setPosition(origin + Vec2(sp->getPosition().x + sp->getContentSize().width*sp->getScale(), visibleSize.height*GROUND1_POS_Y_RATIO + 20));
+	addChild(sp1, 2);
 
+	auto sp2 = CAssetMossy::createMossy("01");
+	sp2->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+	sp2->setPosition(origin + Vec2(sp1->getPosition().x + sp1->getContentSize().width*sp1->getScale(), visibleSize.height*GROUND1_POS_Y_RATIO + 20));
+	addChild(sp2, 2);
 
 	return true;
 }
@@ -91,12 +102,6 @@ bool CSceneGameplay::initHero()
 
 bool CSceneGameplay::initBackground()
 {
-
-	/*auto bg = Sprite::create("res/bg/forest/Parallax Forest Background - Blue/10_Sky.png");
-	auto middle_layer = Sprite::create("res/bg/forest/Parallax Forest Background - Blue/09_Forest.png");
-	auto top_layer = Sprite::create("res/bg/forest/Parallax Forest Background - Blue/08_Forest.png");
-	*/
-
 	// Ảnh Background
 
 	// Tạo 1 đối tượng Parallax
@@ -113,9 +118,14 @@ bool CSceneGameplay::initBackground()
 	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/06_Forest.png", 4, Vec2(0.4, 1));
 	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/05_Particles.png", 5, Vec2(0.5, 1));
 	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/04_Forest.png", 6, Vec2(0.6, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy04.png", 5, Vec2(0.55, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy05.png", 2, Vec2(0.45, 1));
 	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/03_Particles.png", 1, Vec2(0.7, 1));
 	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/02_Bushes.png", 2, Vec2(0.8, 1));
 	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/01_Mist.png", 3, Vec2(0.9, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy.png", 0, Vec2(0.6, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy02.png", 0, Vec2(0.6, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy03.png", -1, Vec2(0.6, 1));
 	
 	addChild(_backgroundElements, -5);
 	addChild(_frontgroundElements, 5);
