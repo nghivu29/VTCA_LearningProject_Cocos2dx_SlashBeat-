@@ -40,7 +40,7 @@ bool CSceneMainmenu::init()
 
 void CSceneMainmenu::startGame(cocos2d::Ref *)
 {
-	Director::getInstance()->pushScene(CSceneGameplay::create());
+	Director::getInstance()->pushScene(CSceneGameplay::createScene());
 	log("START GAME");
 }
 

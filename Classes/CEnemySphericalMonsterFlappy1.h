@@ -1,12 +1,12 @@
 #pragma once
 #include "CEnemySphericalMonster.h"
 
-class CEnemySkull : public CEnemySphericalMonster
+class CEnemySphericalMonsterFlappy1 : public CEnemySphericalMonster
 {
 public:
-	static CEnemySkull* createMonster();
+	static CEnemySphericalMonsterFlappy1* createMonster();
 	virtual bool init();
-	CREATE_FUNC(CEnemySkull);
+	CREATE_FUNC(CEnemySphericalMonsterFlappy1);
 
 	virtual bool initHit();
 	virtual bool initIdle1();

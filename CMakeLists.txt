@@ -55,13 +55,12 @@ list(APPEND GAME_SOURCE
         Classes/CEnemy.cpp
         Classes/CEnemyManager.cpp
         Classes/CEnemyRock.cpp
-        Classes/CEnemySphericalMonter.cpp
+        Classes/CEnemySphericalMonster.cpp
         Classes/CHelper.cpp
         Classes/CHero.cpp
         Classes/CHeroKnight.cpp
         Classes/CLayerOption.cpp
         Classes/CMusic.cpp
-        Classes/CMusic_Soldiers.cpp
         Classes/CMusicTest.cpp
         Classes/CObjDependOnMusic.cpp
         Classes/CSceneGameplay.cpp
@@ -69,6 +68,10 @@ list(APPEND GAME_SOURCE
         Classes/CSceneMainmenu.cpp
         Classes/CSceneSplash.cpp
         Classes/InfiniteParallaxNode.cpp
+        Classes/CEnemySkull.cpp
+        Classes/CEnemySphericalMonsterFlappy1.cpp
+        Classes/CAssetMossy.cpp
+        Classes/CLayerSelectScreenPlay.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -79,13 +82,12 @@ list(APPEND GAME_HEADER
         Classes/CEnemy.h
         Classes/CEnemyManager.h
         Classes/CEnemyRock.h
-        Classes/CEnemySphericalMonter.h
+        Classes/CEnemySphericalMonster.h
         Classes/CHelper.h
         Classes/CHero.h
         Classes/CHeroKnight.h
         Classes/CLayerOption.h
         Classes/CMusic.h
-        Classes/CMusic_Soldiers.h
         Classes/CMusicTest.h
         Classes/CObjDependOnMusic.h
         Classes/CSceneGameplay.h
@@ -93,7 +95,11 @@ list(APPEND GAME_HEADER
         Classes/CSceneMainmenu.h
         Classes/CSceneSplash.h
         Classes/InfiniteParallaxNode.h
-     )
+        Classes/CEnemySkull.h
+        Classes/CEnemySphericalMonsterFlappy1.h
+        Classes/CAssetMossy.h
+        Classes/CLayerSelectScreenPlay.h
+        )
 
 if(ANDROID)
     # change APP_NAME to the share library name for Android, it's value depend on AndroidManifest.xml

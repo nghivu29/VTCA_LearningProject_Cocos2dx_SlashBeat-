@@ -1,7 +1,7 @@
  #include "CEnemyManager.h"
-#include "CEnemySphericalMonter.h"
+#include "CEnemySphericalMonster.h"
 #include "CEnemyRock.h"
-#include "CEnemySphericalMonterFlappy1.h"
+#include "CEnemySphericalMonsterFlappy1.h"
 #include "CEnemySkull.h"
 #include "common.h"
 
@@ -10,32 +10,38 @@ USING_NS_CC;
 
 void CEnemyManager::updateEnemies(float dt)
 {
-	int hasNode = _music->hasNote();
-	if (hasNode > 0  && _music->getMeasureCurrent() != lastMeasure)
-	{	
-		auto enemy = createMonster(hasNode, _target);
+	CEnemy* enemy = nullptr;
 
+	int beat = (int)_music->_loopPositionInBeats;
+	if ((beat % 8 == 0) && beat != h_mostRecentBeat)
+	{
+		enemy = createMonster(EEnemy::ROCK_MONSTER_1, _target);
+	}
+	/*else if (beat != h_mostRecentBeat)
+	{
+		enemy = createMonster(EEnemy::SPHERICAL_MONSTER_1, _target);
+	}*/
+
+	h_mostRecentBeat = beat;
+
+	if (enemy)
+	{
+		enemy->idle1();
 		enemy->setTarget(_target);
 		enemy->setMusic(_music);
-		//enemy->setPosition(2000, _target->getPosition().y);
-		Director::getInstance()->getRunningScene()->addChild(enemy, -1);
-		enemy->idle1();
-		if (_target)
-		{
-			auto detal = 0; // -_target->getContentSize().width*_target->getScale()*0.2 : 0;
-			auto time = _music->getFramePerBeat() / (60 / (_music->getBeatDelay() - 1));
-			enemy->runAction
+		auto posEnd = Vec2(_target->getPosition().x - _distanceEnemyRun, enemy->getPosition().y) - Vec2(_detalRange, 0);
+		auto posTarget  = Vec2(_target->getPosition().x, enemy->getPosition().y) + Vec2(_detalRange, 0);
+		enemy->runAction
+		(
+			Sequence::create
 			(
-				Sequence::create
-				(
-					MoveTo::create(time, Vec2(_target->getPosition().x + detal, enemy->getPosition().y)),
-					MoveBy::create(time, Vec2(-_music->getDistance(), 0)),
-					nullptr
-				)
-			);
-		}
+				MoveTo::create(_timeEnemyRun, posTarget),
+				MoveTo::create(_timeEnemyRun, posEnd),
+				nullptr
+			)
+		);
+		Director::getInstance()->getRunningScene()->addChild(enemy, 1);
 	}
-	lastMeasure = _music->getMeasureCurrent();
 }
 
 
@@ -47,42 +53,55 @@ CEnemy * CEnemyManager::createMonster(int enemyName, CActor* target)
 
 	CEnemy* enemy;
 
+	auto posStart = _target->getPosition().x + _distanceEnemyRun;
+
 	switch (enemyName)
 	{
 	case EEnemy::ROCK_MONSTER_1:
 		enemy = CEnemyRock::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
 		break;
 	case EEnemy::ROCK_MONSTER_2:
 		enemy = CEnemyRock::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
 		break;
 	case EEnemy::SPHERICAL_MONSTER_1:
-		enemy = CEnemySphericalMonter::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy = CEnemySphericalMonster::createMonster();
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
 		break;
 	case EEnemy::SPHERICAL_MONSTER_2:
-		enemy = CEnemySphericalMonter::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy = CEnemySphericalMonster::createMonster();
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
 		break;
 	case EEnemy::SPHERICAL_MONSTER_FLAPPY_1:
-		enemy = CEnemySphericalMonterFlappy1::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy = CEnemySphericalMonsterFlappy1::createMonster();
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
 		break;
 	case EEnemy::SPHERICAL_MONSTER_FLAPPY_2:
-		enemy = CEnemySphericalMonterFlappy1::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy = CEnemySphericalMonsterFlappy1::createMonster();
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
 		break;
 	case EEnemy::SKULL_MONSTER_1:
 		enemy = CEnemySkull::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
 		break;
 	case EEnemy::SKULL_MONSTER_2:
 		enemy = CEnemySkull::createMonster();
-		enemy->setPosition(_music->getDistance(), origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
 		break;
 	}
 	return enemy;
+}
+
+bool CEnemyManager::init()
+{
+	//cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
+	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+
+	_distanceEnemyRun = visibleSize.width;
+	_timeEnemyRun = _music->_secPerBeat*x;
+
+	return true;
 }
 
 
@@ -95,6 +114,23 @@ void CEnemyManager::setTarget(CActor * target)
 {
 	_target = target;
 }
+
+void CEnemyManager::setDetalRange(float dt)
+{
+	_detalRange = dt;
+}
+
+void CEnemyManager::setX(int x)
+{
+	this->x = x;
+}
+
+float CEnemyManager::getDetalRange()
+{
+	return _detalRange;
+}
+
+
 
 CEnemyManager::CEnemyManager(CMusic * music, CActor* target)
 {

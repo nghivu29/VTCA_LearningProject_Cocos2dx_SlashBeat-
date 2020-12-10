@@ -1,6 +1,6 @@
 #include "CLayerOption.h"
-#include "SimpleAudioEngine.h"
 #include "CSceneGameplay.h"
+#include "AudioEngine.h"
 
 USING_NS_CC;
 
@@ -37,18 +37,25 @@ bool CLayerOption::init()
 void CLayerOption::playContinue(cocos2d::Ref *)
 {
 	Director::getInstance()->resume();
-	CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	experimental::AudioEngine::resume(_musicID);
 	setPosition(-5000, 0);
 }
 
 void CLayerOption::backScene(cocos2d::Ref *)
 {
+	experimental::AudioEngine::stopAll();
 	Director::getInstance()->popScene();
 	Director::getInstance()->resume();
 }
 
 void CLayerOption::playAgain(cocos2d::Ref *)
 {
+	experimental::AudioEngine::stopAll();
 	Director::getInstance()->replaceScene(CSceneGameplay::createScene());
 	Director::getInstance()->resume();
+}
+
+void CLayerOption::setMusicID(int id)
+{
+	_musicID = id;
 }

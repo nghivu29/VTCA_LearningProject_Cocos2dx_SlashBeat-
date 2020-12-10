@@ -1,7 +1,6 @@
 ﻿#include "CSceneGameplay.h"
 #include "CHeroKnight.h"
-#include "CEnemySphericalMonter.h"
-#include "CMusic_Soldiers.h"
+#include "CEnemySphericalMonster.h"
 #include "CEnemyRock.h"
 #include "CAssetMossy.h"
 
@@ -37,11 +36,10 @@ bool CSceneGameplay::init()
 	addChild(_test, 10);
 
 	// test music
-	_music = CMusic_Soldiers::create();
-//	_music = CMusicTest::create();
-	addChild(_music);
+	//_music = CMusic_Soldiers::create();
+	_music = CMusicTest::create();
 	_music->retain();
-	_music->playMusic();
+	addChild(_music);
 	scheduleUpdate();
 
 	// để sau khi định nghĩa xong _music
@@ -80,14 +78,21 @@ void CSceneGameplay::update(float delta)
 	_enemyManager->updateEnemies(delta);
 
 	// update backgound
-	Point scrollDecrement = Point(25, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
-	_backgroundElements->setPosition(_backgroundElements->getPosition() - scrollDecrement);
-	_backgroundElements->updatePosition();
-	_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
-	_frontgroundElements->updatePosition();
+	//Point scrollDecrement = Point(25, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
+	//_backgroundElements->setPosition(_backgroundElements->getPosition() - scrollDecrement);
+	//_backgroundElements->updatePosition();
+	//_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
+	//_frontgroundElements->updatePosition();
 
 	//test
-	_test->setString(StringUtils::format("%d", _music->getBeatCurrent()));
+	//_test->setString(StringUtils::format("%.0f", _music->_songPositionInBeats));
+
+	if (!_isPlayMusic)
+	{
+		_music->StartMusic();
+		_isPlayMusic = true;
+		_layerOption->setMusicID(_music->_audioID);
+	}
 }
 
 bool CSceneGameplay::initHero()
@@ -138,6 +143,8 @@ bool CSceneGameplay::initBackground()
 bool CSceneGameplay::initEnemyMananager()
 {
 	_enemyManager = new CEnemyManager(_music, _hero);
+	_enemyManager->setX(3);
+	_enemyManager->init();
 	return true;
 }
 
@@ -167,8 +174,8 @@ bool CSceneGameplay::initLayerOption()
 void CSceneGameplay::pauseGame(cocos2d::Ref *)
 {
 	_layerOption->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2);
+	_music->pause();
 	Director::getInstance()->pause();
-	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 }
 
 void CSceneGameplay::helpInitParallaxLayer(InfiniteParallaxNode* parallax, const std::string & fileName, int z, cocos2d::Vec2 ratio, float distance)

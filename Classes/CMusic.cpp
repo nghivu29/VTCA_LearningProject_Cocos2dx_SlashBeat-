@@ -1,156 +1,96 @@
 ﻿#include "CMusic.h"
+#include "AudioEngine.h"
+
 
 USING_NS_CC;
 
-void CMusic::playMusic()
+using namespace experimental;
+
+
+
+
+
+void CMusic::StartMusic()
 {
-	//f = (_fps*_bpm) / (60 * _measures);
-	f = (_fps * 60) / (_bpm*_measures);
-	if (!_fileName.empty()) {
-		resetMusic();
-		//SimpleAudioEngine::getInstance()->playBackgroundMusic(_fileName.c_str());
-		SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-		schedule(schedule_selector(CMusic::update), 1/_fps);
-	}
+	//Start the music
+	_audioID = AudioEngine::play2d(_fileName);
+
+	//Record the time when the music starts
+	_dspSongTime = AudioEngine::getCurrentTime(_audioID);
+
+	// run update
+	scheduleUpdate();
 }
-
-void CMusic::resetMusic()
-{
-	if (SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying())
-		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
-	_frameCurrent = 0;
-	_measureCurrent = 0;
-	_beatCurrent = 0;
-}
-
-int CMusic::hasNote()
-{
-	if (_notesChanges[_beatCurrent].size() != 0)
-	{
-		lastChangeFromBeat = _beatCurrent;
-		return _notesChanges[_beatCurrent][_measureCurrent];
-	}
-	else
-	{
-		if (lastChangeFromBeat != -1)
-		{
-			return _notesChanges[lastChangeFromBeat][_measureCurrent];
-		}
-	}
-	return 0;
-}
-
-// chưa nghĩ ra thuật toán
-bool CMusic::hasNote(int deltaFrame)
-{
-	
-	return false;
-}
-
-void CMusic::addChange(int beatStart,  ...)
-{
-	va_list ap;
-	va_start(ap, beatStart);
-	for (size_t i = 0; i < _measures; i++)
-	{
-		_notesChanges[beatStart].push_back(va_arg(ap, int));
-	}
-	va_end(ap);
-}
-
 
 bool CMusic::init()
 {
 	if (!Node::init())
 		return false;
-
-	_fileName = "";
-	_bpm = 0;
-	_fps = 60.0f;
-	_measures = 0;
-	resetMusic();
-
+	//Calculate the number of seconds in each beat
+	_secPerBeat = 60.0f / _songBpm;
 	return true;
 }
 
 void CMusic::update(float dt)
 {
-	_frameCurrent++;
-	count++;
-	if (count > f) {
-		count = 1;
-		_measureCurrent++;
-		if (_measureCurrent >= _measures)
-		{
-			_measureCurrent = 0;
-			_beatCurrent++;
-		}
-	}
+	_loopPositionInAnalog = _loopPositionInBeats / _beatsPerLoop;
+
+	//determine how many seconds since the song started
+	_songPosition = (float)(AudioEngine::getCurrentTime(_audioID) - _dspSongTime - _firstBeatOffset);
+
+	//determine how many beats since the song started
+	_songPositionInBeats = _songPosition / _secPerBeat;
+
+	//calculate the loop position
+	if (_songPositionInBeats >= (_completedLoops + 1) * _beatsPerLoop)
+		_completedLoops++;
+	_loopPositionInBeats = _songPositionInBeats - _completedLoops * _beatsPerLoop;
+
 }
 
-std::string CMusic::getFileName()
+void CMusic::pause()
 {
-	return _fileName;
+	AudioEngine::pause(_audioID);
 }
 
-float CMusic::getBpm()
+void CMusic::resume()
 {
-	return _bpm;
+	AudioEngine::resume(_audioID);
 }
 
-float CMusic::getFps()
-{
-	return _fps;
-}
-
-int CMusic::getFrameCurrent()
-{
-	return _frameCurrent;
-}
-
-int CMusic::getMeasures()
-{
-	return _measures;
-}
-
-int CMusic::getMeasureCurrent()
-{
-	return _measureCurrent;
-}
-
-int CMusic::getBeatCurrent()
-{
-	return _beatCurrent;
-}
-
-void CMusic::logNotesChanges()
-{
-//	std::string str = "";
-//	for (auto i = _notesChanges.begin(); i != _notesChanges.end() ; i++)
+//int CMusic::hasNote()
+//{
+//	if (_notesChanges[_beatCurrent].size() != 0)
 //	{
-//		for (size_t j = 0; j < _measures; j++)
-//		{
-//			str += StringUtils::format("%d|%s ", j, (*i).second.at(j) ? "true":"false" );
-//		}
-//		log("beat %d: %s", (*i).first, str);
-//		str = "";
+//		lastChangeFromBeat = _beatCurrent;
+//		return _notesChanges[_beatCurrent][_measureCurrent];
 //	}
-}
-
-float CMusic::getFramePerBeat()
-{
-	return f*_measures;
-}
-
-int CMusic::getDistance()
-{
-	return _distance;
-}
-
-int CMusic::getBeatDelay()
-{
-	return _beatDelay;
-}
+//	else
+//	{
+//		if (lastChangeFromBeat != -1)
+//		{
+//			return _notesChanges[lastChangeFromBeat][_measureCurrent];
+//		}
+//	}
+//	return 0;
+//}
+//
+//// chưa nghĩ ra thuật toán
+//bool CMusic::hasNote(int deltaFrame)
+//{
+//	
+//	return false;
+//}
+//
+//void CMusic::addChange(int beatStart,  ...)
+//{
+//	va_list ap;
+//	va_start(ap, beatStart);
+//	for (size_t i = 0; i < _measures; i++)
+//	{
+//		_notesChanges[beatStart].push_back(va_arg(ap, int));
+//	}
+//	va_end(ap);
+//}
 
 

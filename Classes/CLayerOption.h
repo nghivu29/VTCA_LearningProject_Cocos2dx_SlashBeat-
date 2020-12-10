@@ -5,6 +5,7 @@ class CLayerOption : public cocos2d::Layer
 {
 private:
 	cocos2d::Menu* _menu;
+	int _musicID;
 
 public:
 	static CLayerOption* createLayer();
@@ -14,6 +15,7 @@ public:
 	void playContinue(cocos2d::Ref*);
 	void backScene(cocos2d::Ref*);
 	void playAgain(cocos2d::Ref*);
-
+	
+	void setMusicID(int id);
 };
 

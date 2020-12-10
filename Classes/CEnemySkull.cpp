@@ -9,7 +9,7 @@ CEnemySkull * CEnemySkull::createMonster()
 
 bool CEnemySkull::init()
 {
-	if (!CEnemySphericalMonter::init())
+	if (!CEnemySphericalMonster::init())
 		return false;
 
 	_type = EEnemyType::HARD;

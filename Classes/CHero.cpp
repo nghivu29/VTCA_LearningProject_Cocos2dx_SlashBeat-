@@ -131,12 +131,22 @@ bool CHero::initAndroidCtrl()
 			_frameFly = 0;
 			if (t->getLocation().x > center_scene.x)
 			{
-				setPosition(HERO_POS_UP);
+				if (getPosition() == HERO_POS_DOWN)
+				{
+					runTeleEffect();
+					setPosition(HERO_POS_UP);
+					runAfterTeleEffect();
+				}
 				attack1();
 			}
 			else
 			{
-				setPosition(HERO_POS_UP);
+				if (getPosition() == HERO_POS_DOWN)
+				{
+					runTeleEffect();
+					setPosition(HERO_POS_UP);
+					runAfterTeleEffect();
+				}
 				attack2();
 			}
 		}
@@ -144,12 +154,22 @@ bool CHero::initAndroidCtrl()
 		{
 			if (t->getLocation().x > center_scene.x)
 			{
-				setPosition(HERO_POS_DOWN);
+				if (getPosition() == HERO_POS_UP)
+				{
+					runTeleEffect();
+					setPosition(HERO_POS_DOWN);
+					runAfterTeleEffect();
+				}
 				attack1();
 			}
 			else
 			{
-				setPosition(HERO_POS_DOWN);
+				if (getPosition() == HERO_POS_UP)
+				{
+					runTeleEffect();
+					setPosition(HERO_POS_DOWN);
+					runAfterTeleEffect();
+				}
 				attack2();
 			}
 		}
@@ -187,9 +207,11 @@ void CHero::runTeleEffect()
 	duAnh->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	duAnh->setPosition(this->getPosition());
 	scene->addChild(duAnh);
-	duAnh->runAction(MoveBy::create(0.2, Vec2(-30, 10)));
+	duAnh->runAction(MoveBy::create(0.2, Vec2(-100, 10)));
 	duAnh->runAction(FadeOut::create(0.3));
 	duAnh->runAction(ScaleBy::create(0.3, 0.9));
+	duAnh->runAction(Sequence::create(DelayTime::create(0.6), RemoveSelf::create(), nullptr));
+
 
 
 	auto duAnh2 = Sprite::createWithSpriteFrame(duAnh->getDisplayFrame());
@@ -199,9 +221,11 @@ void CHero::runTeleEffect()
 	duAnh2->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	duAnh2->setPosition(this->getPosition());
 	scene->addChild(duAnh2);
-	duAnh2->runAction(MoveBy::create(0.3, Vec2(30, -10)));
+	duAnh2->runAction(MoveBy::create(0.3, Vec2(-70, -10)));
 	duAnh2->runAction(FadeOut::create(0.6));
 	duAnh2->runAction(ScaleBy::create(0.6, 1.1));
+	duAnh2->runAction(Sequence::create(DelayTime::create(0.6), RemoveSelf::create(), nullptr));
+
 
 
 }
@@ -211,15 +235,17 @@ void CHero::runAfterTeleEffect()
 	auto scene = Director::getInstance()->getRunningScene();
 	Sprite* duAnh;
 	duAnh = Sprite::createWithSpriteFrame(this->getDisplayFrame());
+	duAnh->setScale(this->getScale()*1.05f);
 	duAnh->setColor(Color3B::BLACK);
 	duAnh->setOpacity(200);
-	duAnh->setScale(this->getScale());
 	duAnh->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
-	duAnh->setPosition(this->getPosition());
+	duAnh->setPosition(this->getPosition()-Vec2(30, 0));
 	scene->addChild(duAnh, 1);
-	duAnh->runAction(MoveBy::create(0.5, Vec2(-25, 0)));
-	duAnh->runAction(ScaleBy::create(0.2, 1.05));
+	duAnh->runAction(MoveTo::create(0.5, this->getPosition()));
+	duAnh->runAction(ScaleTo::create(0.2, this->getScale()));
 	duAnh->runAction(FadeOut::create(0.2));
+	duAnh->runAction(Sequence::create(DelayTime::create(0.2f), RemoveSelf::create(), nullptr));
+
 }
 
 

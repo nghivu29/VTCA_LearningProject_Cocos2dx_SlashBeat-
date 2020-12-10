@@ -15,6 +15,7 @@ protected:
 	CHero* _hero;
 	CMusic* _music;
 	CEnemyManager* _enemyManager;
+	bool _isPlayMusic = false;
 
 	// bien dung de test
 	cocos2d::Label* _test;
