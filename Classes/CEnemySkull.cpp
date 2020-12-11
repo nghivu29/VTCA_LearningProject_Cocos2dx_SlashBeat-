@@ -20,13 +20,13 @@ bool CEnemySkull::init()
 
 bool CEnemySkull::initHit()
 {
-	_animatesHit = helpCreateAnimates(SKULLMONSTER_HIT_FRAME_NAME_FORMAT, SKULLMONSTER_HIT_NUMBER, SKULLMONSTER_HIT_FRAME_NUMBER);
+	_animatesHit.pushBack(helpCreateAnimates(SKULLMONSTER_HIT_FRAME_NAME_FORMAT, SKULLMONSTER_HIT_FRAME_NUMBER));
 	return true;
 }
 
 bool CEnemySkull::initIdle1()
 {
-	_animatesIdle1 = helpCreateAnimates(SKULLMONSTER_IDLE_FRAME_NAME_FORMAT, SKULLMONSTER_IDLE_NUMBER, SKULLMONSTER_IDLE_FRAME_NUMBER, 0.2f);
+	_animatesIdle1.pushBack(helpCreateAnimates(SKULLMONSTER_IDLE_FRAME_NAME_FORMAT, SKULLMONSTER_IDLE_FRAME_NUMBER, 0.2f));
 	return true;
 }
 

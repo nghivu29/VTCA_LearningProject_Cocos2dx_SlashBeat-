@@ -23,5 +23,6 @@ public:
 
 	virtual bool loadResource();
 
+	virtual void update(float dt);
 };
 

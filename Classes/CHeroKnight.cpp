@@ -35,7 +35,7 @@ void CHeroKnight::dead()
 				Director::getInstance()->getRunningScene()->pauseSchedulerAndActions();
 			}
 		),
-		_animatesDead[0],
+		_animatesDead.at(0),
 		nullptr
 	));
 }
@@ -44,7 +44,7 @@ void CHeroKnight::hit()
 {
 	CHero::hit();
 	stopAllActions();
-	runAction(Sequence::create(_animatesHit[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
+	runAction(Sequence::create(_animatesHit.at(0), CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
 }
 
 void CHeroKnight::idle1()
@@ -55,7 +55,7 @@ void CHeroKnight::idle2()
 {
 	CHero::idle2();
 	stopAllActions();
-	runAction(RepeatForever::create(_animatesIdle2[0]));
+	runAction(RepeatForever::create(_animatesIdle2.at(0)));
 }
 
 void CHeroKnight::run1()
@@ -67,7 +67,7 @@ void CHeroKnight::run2()
 {
 	CHero::run2();
 	stopAllActions();
-	runAction(RepeatForever::create(_animatesRun2[0]));
+	runAction(RepeatForever::create(_animatesRun2.at(0)));
 }
 
 void CHeroKnight::stun()
@@ -79,7 +79,7 @@ void CHeroKnight::attack1()
 	log("Hero: %f", _music->_songPositionInBeats);
 	CHero::attack1();
 	stopAllActions();
-	runAction(Sequence::create(_animatesAttack1[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2,this)), nullptr));
+	runAction(Sequence::create(_animatesAttack1.at(0), CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2,this)), nullptr));
 }
 
 void CHeroKnight::attack2()
@@ -87,7 +87,7 @@ void CHeroKnight::attack2()
 	log("Hero: %f", _music->_songPositionInBeats);
 	CHero::attack2();
 	stopAllActions();
-	runAction(Sequence::create(_animatesAttack2[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
+	runAction(Sequence::create(_animatesAttack2.at(0), CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
 
 }
 
@@ -101,13 +101,13 @@ void CHeroKnight::walk2()
 
 bool CHeroKnight::initDead()
 {
-	_animatesDead = helpCreateAnimates(KNIGHT_DEAD_0_FRAME_NAME_FORMAT, KNIGHT_DEAD_NUMBER, KNIGHT_DEAD_FRAME_NUMBER, 0.05f);
+	_animatesDead.pushBack(helpCreateAnimates(KNIGHT_DEAD_0_FRAME_NAME_FORMAT, KNIGHT_DEAD_FRAME_NUMBER, 0.05f));
 	return true;
 }
 
 bool CHeroKnight::initHit()
 {
-	_animatesHit = helpCreateAnimates(KNIGHT_HIT_0_FRAME_NAME_FORMAT, KNIGHT_HIT_NUMBER, KNIGHT_HIT_FRAME_NUMBER);
+	_animatesHit.pushBack(helpCreateAnimates(KNIGHT_HIT_0_FRAME_NAME_FORMAT, KNIGHT_HIT_FRAME_NUMBER));
 	return true;
 }
 
@@ -118,7 +118,7 @@ bool CHeroKnight::initIdle1()
 
 bool CHeroKnight::initIdle2()
 {
-	_animatesIdle2 = helpCreateAnimates(KNIGHT_IDLE2_0_FRAME_NAME_FORMAT, KNIGHT_IDLE2_NUMBER, KNIGHT_IDLE2_FRAME_NUMBER);
+	_animatesIdle2.pushBack(helpCreateAnimates(KNIGHT_IDLE2_0_FRAME_NAME_FORMAT, KNIGHT_IDLE2_FRAME_NUMBER));
 	return true;
 }
 
@@ -129,7 +129,7 @@ bool CHeroKnight::initRun1()
 
 bool CHeroKnight::initRun2()
 {
-	_animatesRun2 = helpCreateAnimates(KNIGHT_RUN2_0_FRAME_NAME_FORMAT, KNIGHT_RUN2_NUMBER, KNIGHT_RUN2_FRAME_NUMBER, 0.018f);
+	_animatesRun2.pushBack(helpCreateAnimates(KNIGHT_RUN2_0_FRAME_NAME_FORMAT, KNIGHT_RUN2_FRAME_NUMBER, 0.018f));
 	return true;
 }
 
@@ -140,13 +140,13 @@ bool CHeroKnight::initStun()
 
 bool CHeroKnight::initAttack1()
 {
-	_animatesAttack1 = helpCreateAnimates(KNIGHT_ATTACK1_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK1_NUMBER, KNIGHT_ATTACK1_FRAME_NUMBER, 0.007f);
+	_animatesAttack1.pushBack(helpCreateAnimates(KNIGHT_ATTACK1_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK1_FRAME_NUMBER, 0.007f));
 	return true;
 }
 
 bool CHeroKnight::initAttack2()
 {
-	_animatesAttack2 = helpCreateAnimates(KNIGHT_ATTACK2_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK2_NUMBER, KNIGHT_ATTACK2_FRAME_NUMBER, 0.007f);
+	_animatesAttack2.pushBack(helpCreateAnimates(KNIGHT_ATTACK2_0_FRAME_NAME_FORMAT, KNIGHT_ATTACK2_FRAME_NUMBER, 0.007f));
 	return true;
 }
 

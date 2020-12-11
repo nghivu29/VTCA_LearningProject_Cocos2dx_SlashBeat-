@@ -18,8 +18,9 @@ enum EEnemy
 	SPHERICAL_MONSTER_FLAPPY_1,
 	SPHERICAL_MONSTER_FLAPPY_2,
 	SKULL_MONSTER_1,
-	SKULL_MONSTER_2
-
+	SKULL_MONSTER_2,
+	BOSS0,
+	ENEMY_FROM_BOSS0
 };
 
 class CEnemy : public CActor, public CObjDependOnMusic
@@ -48,5 +49,9 @@ public:
 	void setTarget(CActor* targetActor);
 	void setType(EEnemyType type);
 	void setName(EEnemy name);
+
+	// getter
+	EEnemy getName();
+	EEnemyType getType();
 };
 

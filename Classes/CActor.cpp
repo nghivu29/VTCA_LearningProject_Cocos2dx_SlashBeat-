@@ -81,6 +81,10 @@ void CActor::walk2()
 	_status = WALK2;
 }
 
+void CActor::script1()
+{
+}
+
 void CActor::setHp(int hp)
 {
 	_hp = hp;

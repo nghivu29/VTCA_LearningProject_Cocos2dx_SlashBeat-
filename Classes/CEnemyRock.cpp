@@ -15,7 +15,6 @@ bool CEnemyRock::init()
 	setScale(ROCK_MONSTER_RATIO_H);
 	setTexture(ROCKMONSTER_PATH);
 	_type = EEnemyType::HARD;
-
 	return true;
 }
 

@@ -48,6 +48,9 @@ public:
 	virtual void walk1();
 	virtual void walk2();
 
+	// cac script
+	virtual void script1();
+
 	// cac setter va getter
 	void setHp(int hp);
 	void setStatus(EActorStatus status);

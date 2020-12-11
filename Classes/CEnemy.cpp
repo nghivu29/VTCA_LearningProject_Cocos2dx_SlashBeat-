@@ -104,3 +104,13 @@ void CEnemy::setName(EEnemy name)
 {
 	_enemyName = name;
 }
+
+EEnemy CEnemy::getName()
+{
+	return _enemyName;
+}
+
+EEnemyType CEnemy::getType()
+{
+	return _type;
+}

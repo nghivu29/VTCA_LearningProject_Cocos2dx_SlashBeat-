@@ -122,27 +122,29 @@ void CAnimateActor::walk2()
 * @frameNumber số lượng frame trong file.plist
 * @delay là thời gian giữa các SpriteFrame
 */
-cocos2d::Animate ** CAnimateActor::helpCreateAnimates(const char* frameNameFormat, int size, int frameNumber, float delay)
+cocos2d::Animate* CAnimateActor::helpCreateAnimates(const char* frameNameFormat, int frameNumber, float delay)
+{
+	return helpCreateAnimates(frameNameFormat, 0, frameNumber - 1, delay);
+}
+
+cocos2d::Animate * CAnimateActor::helpCreateAnimates(const char * frameNameFormat, int fromFrame, int toFrame, float delay)
 {
 	auto cache = SpriteFrameCache::getInstance();
-	auto animates = new Animate*[size];
-	for (size_t i = 0; i < size; i++)
+	Vector<SpriteFrame*> vector;
+	for (size_t j = fromFrame; j <= toFrame; j++)
 	{
-		Vector<SpriteFrame*> vector;
-		for (size_t j = 0; j < frameNumber; j++)
-		{
-			vector.pushBack
+		vector.pushBack
+		(
+			cache->getSpriteFrameByName
 			(
-				cache->getSpriteFrameByName
-				(
-					StringUtils::format(frameNameFormat, j)
-				)
-			);
-		}
-		animates[i] = Animate::create(Animation::createWithSpriteFrames(vector, delay));
-		animates[i]->retain();
+				StringUtils::format(frameNameFormat, j)
+			)
+		);
 	}
-	return animates;
+	auto animate = Animate::create(Animation::createWithSpriteFrames(vector, delay));
+	//animate->getAnimation()->setRestoreOriginalFrame(true);
+	animate->retain();
+	return animate;
 }
 
 bool CAnimateActor::helpLoadResourceAimates(const char * filePathFormat, int size)

@@ -60,10 +60,12 @@ bool CLayerSelectScreenPlay::init()
 
 	// test boss;
 	auto boss = CEnemyBoss::createBoss();
+	//boss->setAnchorPoint(Vec2::ANCHOR_MIDDLE+Vec2(-0.1f, -0.3f));
 	boss->retain();
+	boss->setPosition(origin.x + 300, origin.y + 200);
 	boss->unscheduleUpdate();
 	addChild(boss, 5);
-	boss->run1();
+	boss->dead();
 
 	return true;
 }

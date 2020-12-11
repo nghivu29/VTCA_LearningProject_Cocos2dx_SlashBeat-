@@ -111,9 +111,9 @@
 #define BOSS_DEAD_FRAME_NUMBER 16
 #define BOSS_DEAD_FRAME_NAME_FORMAT "die1_%d.png"
 
-#define BOSS_ATTACK_NUMBER 1
-#define BOSS_ATTACK_FRAME_NUMBER 9
-#define BOSS_ATTACK_FRAME_NAME_FORMAT "attack2_%d.png"
+#define BOSS_ATTACK2_NUMBER 1
+#define BOSS_ATTACK2_FRAME_NUMBER 31
+#define BOSS_ATTACK2_FRAME_NAME_FORMAT "attack2_%d.png"
 
 // file backgound
 #define BACKGROUND_PATH "res/bg/forest/bg_forest.png"

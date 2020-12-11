@@ -10,7 +10,7 @@ CSceneGameplay2 * CSceneGameplay2::createScene()
 bool CSceneGameplay2::init()
 {
 	_x = 4;
-	_bgSpeed = 0;
+	_bgSpeed = 20;
 	_heroRunSpeed = 0;
 	_musicID = 2;
 

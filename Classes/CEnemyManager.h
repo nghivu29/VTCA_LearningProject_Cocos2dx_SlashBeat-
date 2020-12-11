@@ -23,10 +23,15 @@ private:
 	// beat gần nhất
 	int h_mostRecentBeat = -100;
 
+	// boss
+	CEnemy* _boss;
+
 public:
 	virtual void updateEnemies(float dt);
 	CEnemy* createMonster(int enemyName, CActor* target);
 	virtual bool init();
+
+	void bossScript1(CEnemy* enemy);
 
 	// setter
 	void setMusic(CMusic* music);
@@ -43,5 +48,8 @@ public:
 
 	// debug log
 	void logSongPosition();
+
+	// help
+	float helpChaseTarget(float targetPosY);
 };
 

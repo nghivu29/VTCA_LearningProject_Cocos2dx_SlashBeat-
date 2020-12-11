@@ -26,13 +26,13 @@ void CEnemySphericalMonster::hit()
 {
 	stopAllActions();
 	runAction(MoveBy::create(0.5, Vec2(1000, 1000)));
-	runAction(Sequence::create(_animatesHit[0], FadeOut::create(0.5f), nullptr));
+	runAction(Sequence::create(_animatesHit.at(0), FadeOut::create(0.5f), nullptr));
 }
 
 void CEnemySphericalMonster::idle1()
 {
 	stopAllActions();
-	runAction(RepeatForever::create(_animatesIdle1[0]));
+	runAction(RepeatForever::create(_animatesIdle1.at(0)));
 }
 
 void CEnemySphericalMonster::idle2()
@@ -83,13 +83,13 @@ bool CEnemySphericalMonster::initDead()
 
 bool CEnemySphericalMonster::initHit()
 {
-	_animatesHit = helpCreateAnimates(SPHERICALMONTER_HIT_FRAME_NAME_FORMAT, SPHERICALMONTER_HIT_NUMBER, SPHERICALMONTER_HIT_FRAME_NUMBER);
+	_animatesHit.pushBack(helpCreateAnimates(SPHERICALMONTER_HIT_FRAME_NAME_FORMAT, SPHERICALMONTER_HIT_FRAME_NUMBER));
 	return true;
 }
 
 bool CEnemySphericalMonster::initIdle1()
 {
-	_animatesIdle1 = helpCreateAnimates(SPHERICALMONTER_IDLE_FRAME_NAME_FORMAT, SPHERICALMONTER_IDLE_NUMBER, SPHERICALMONTER_IDLE_FRAME_NUMBER, 0.2f);
+	_animatesIdle1.pushBack(helpCreateAnimates(SPHERICALMONTER_IDLE_FRAME_NAME_FORMAT, SPHERICALMONTER_IDLE_FRAME_NUMBER, 0.2f));
 	return true;
 }
 

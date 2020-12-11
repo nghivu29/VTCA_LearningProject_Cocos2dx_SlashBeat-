@@ -14,12 +14,22 @@ bool CEnemyBoss::init()
 	{
 		return false;
 	}
+	_enemyName = EEnemy::BOSS0;
+	setFlipX(true);
+	//setAnchorPoint(Vec2::ANCHOR_MIDDLE + Vec2(-0.11f, -0.3f));
+	setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+
+	_hp = 20;
 
 	return true;
 }
 
 void CEnemyBoss::dead()
 {
+	CEnemy::dead();
+	stopAllActions();
+	runAction(RepeatForever::create(_animatesDead.at(0)));
+	runAction(Sequence::create(DelayTime::create(2.0), FadeOut::create(3), nullptr));
 }
 
 void CEnemyBoss::hit()
@@ -30,14 +40,14 @@ void CEnemyBoss::idle1()
 {
 	CEnemy::idle1();
 	stopAllActions();
-	runAction(RepeatForever::create(_animatesIdle1[0]));
+	runAction(RepeatForever::create(_animatesIdle1.at(0)));
 }
 
 void CEnemyBoss::run1()
 {
 	CEnemy::run1();
 	stopAllActions();
-	runAction(RepeatForever::create(_animatesRun1[0]));
+	runAction(RepeatForever::create(_animatesRun1.at(0)));
 }
 
 void CEnemyBoss::attack1()
@@ -47,30 +57,38 @@ void CEnemyBoss::attack1()
 
 void CEnemyBoss::attack2()
 {
-	//_animatesAttack2 = helpCreateAnimates();
+	CEnemy::attack2();
+	stopAllActions();
+	runAction( Sequence::create
+	(
+		_animatesAttack2.at(0),
+		_animatesAttack2.at(1),
+		_animatesAttack2.at(2),
+		nullptr
+	));
 }
 
 bool CEnemyBoss::initDead()
 {
-	_animatesDead = helpCreateAnimates(BOSS_DEAD_FRAME_NAME_FORMAT, BOSS_DEAD_NUMBER, BOSS_DEAD_FRAME_NUMBER, 0.2f);
+	_animatesDead.pushBack(helpCreateAnimates(BOSS_DEAD_FRAME_NAME_FORMAT, BOSS_DEAD_FRAME_NUMBER, 0.25f));
 	return true;
 }
 
 bool CEnemyBoss::initHit()
 {
-	_animatesHit = helpCreateAnimates(BOSS_HIT_FRAME_NAME_FORMAT, BOSS_HIT_NUMBER, BOSS_HIT_FRAME_NUMBER, 0.1f);
+	_animatesHit.pushBack(helpCreateAnimates(BOSS_HIT_FRAME_NAME_FORMAT, BOSS_HIT_FRAME_NUMBER, 0.1f));
 	return true;
 }
 
 bool CEnemyBoss::initIdle1()
 {
-	_animatesIdle1 = helpCreateAnimates(BOSS_IDLE_FRAME_NAME_FORMAT, BOSS_IDLE_NUMBER, BOSS_IDLE_FRAME_NUMBER, 0.2f);
+	_animatesIdle1.pushBack(helpCreateAnimates(BOSS_IDLE_FRAME_NAME_FORMAT, BOSS_IDLE_FRAME_NUMBER, 0.2f));
 	return true;
 }
 
 bool CEnemyBoss::initRun1()
 {
-	_animatesRun1 = helpCreateAnimates(BOSS_RUN_FRAME_NAME_FORMAT, BOSS_RUN_NUMBER, BOSS_RUN_FRAME_NUMBER, 0.2f);
+	_animatesRun1.pushBack(helpCreateAnimates(BOSS_RUN_FRAME_NAME_FORMAT, BOSS_RUN_FRAME_NUMBER, 0.2f));
 	return true;
 }
 
@@ -81,7 +99,11 @@ bool CEnemyBoss::initAttack1()
 
 bool CEnemyBoss::initAttack2()
 {
-	return false;
+	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 0, 4, 0.13f));
+	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 5, 13, 0.25f));
+	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 14, 30, 0.13f));
+	_animatesAttack2.at(1)->getAnimation()->setLoops(10);
+	return true;
 }
 
 bool CEnemyBoss::loadResource()
@@ -92,3 +114,15 @@ bool CEnemyBoss::loadResource()
 	cache->addSpriteFramesWithFile(BOSS0_PATH);
 	return true;
 }
+
+void CEnemyBoss::update(float dt)
+{
+	CEnemy::update(dt);
+	if (_hp <= 0)
+	{
+		dead();
+		unscheduleUpdate();
+	}
+}
+
+

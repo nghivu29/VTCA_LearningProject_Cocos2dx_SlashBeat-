@@ -1,5 +1,6 @@
 #include "CMusicThroughTheFireAndFlames.h"
 #include "AudioEngine.h"
+#include "CEnemy.h"
 
 USING_NS_CC;
 using namespace experimental;
@@ -24,6 +25,7 @@ bool CMusicThroughTheFireAndFlames::init()
 	_firstBeatOffset = 18.4f;
 	_beatsPerLoop = 4.0f;
 
+	addNote(0, EEnemy::BOSS0, 0, 0, 0);
 	addNote(1, 1, 0, 0, 0);
 	addNote(5, 0, 0, 0, 0);
 	addNote(9, 1, 0, 0, 0);
@@ -37,7 +39,9 @@ bool CMusicThroughTheFireAndFlames::init()
 	addNote(85, 6, 0, 6, 0);
 	addNote(89, 6, 6, 6, 6);
 	addNote(98, 4, 0, 0, 0);
+	addNote(138, 10, 10, 10, 10);
 
+	// test
 	
 
 

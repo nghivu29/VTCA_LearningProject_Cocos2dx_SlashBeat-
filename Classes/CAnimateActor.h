@@ -7,18 +7,18 @@ CAnimateActor của các nhân vật ứng với EActorStauts của các nhân v
 */
 class CAnimateActor
 {
-protected:
-	cocos2d::Animate** _animatesDead;
-	cocos2d::Animate** _animatesHit;
-	cocos2d::Animate** _animatesIdle1;
-	cocos2d::Animate** _animatesIdle2;
-	cocos2d::Animate** _animatesRun1;
-	cocos2d::Animate** _animatesRun2;
-	cocos2d::Animate** _animatesStun;
-	cocos2d::Animate** _animatesAttack1;
-	cocos2d::Animate** _animatesAttack2;
-	cocos2d::Animate** _animatesWalk1;
-	cocos2d::Animate** _animatesWalk2;
+public:
+	cocos2d::Vector<cocos2d::Animate*> _animatesDead;
+	cocos2d::Vector<cocos2d::Animate*> _animatesHit;
+	cocos2d::Vector<cocos2d::Animate*> _animatesIdle1;
+	cocos2d::Vector<cocos2d::Animate*> _animatesIdle2;
+	cocos2d::Vector<cocos2d::Animate*> _animatesRun1;
+	cocos2d::Vector<cocos2d::Animate*> _animatesRun2;
+	cocos2d::Vector<cocos2d::Animate*> _animatesStun;
+	cocos2d::Vector<cocos2d::Animate*> _animatesAttack1;
+	cocos2d::Vector<cocos2d::Animate*> _animatesAttack2;
+	cocos2d::Vector<cocos2d::Animate*> _animatesWalk1;
+	cocos2d::Vector<cocos2d::Animate*> _animatesWalk2;
 
 protected:
 	// các hàm định nghĩa
@@ -50,7 +50,8 @@ public:
 	virtual void walk2();
 
 	// giúp tạo animate
-	static cocos2d::Animate** helpCreateAnimates(const char* frameNameFormat, int size, int frameNumber, float delay = 0.02f);
+	static cocos2d::Animate* helpCreateAnimates(const char* frameNameFormat, int frameNumber, float delay = 0.02f);
+	static cocos2d::Animate* helpCreateAnimates(const char* frameNameFormat, int fromFrame, int toFrame, float delay = 0.02f);
 	static bool helpLoadResourceAimates(const char* filePathFormat, int size);
 };
 
