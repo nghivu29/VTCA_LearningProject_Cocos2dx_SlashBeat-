@@ -4,6 +4,7 @@ USING_NS_CC;
 
 bool CActor::init()
 {
+	_status = EActorStatus::NONE;
 	if (!Sprite::init())
 		return false;
 	if (!(loadResource() && CAnimateActor::initAnimate()))

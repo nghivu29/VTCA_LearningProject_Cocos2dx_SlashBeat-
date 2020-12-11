@@ -92,6 +92,29 @@
 
 #define ROCKMONSTER_PATH "res/actor/enemy/rock_monster/rock-monster.png"
 
+// boss
+#define BOSS0_PATH "res/actor/enemy/boss/boss0.plist"
+
+#define BOSS_IDLE_NUMBER 1
+#define BOSS_IDLE_FRAME_NUMBER 8
+#define BOSS_IDLE_FRAME_NAME_FORMAT "stand_%d.png"
+
+#define BOSS_RUN_NUMBER 1
+#define BOSS_RUN_FRAME_NUMBER 8
+#define BOSS_RUN_FRAME_NAME_FORMAT "move_%d.png"
+
+#define BOSS_HIT_NUMBER 1
+#define BOSS_HIT_FRAME_NUMBER 1
+#define BOSS_HIT_FRAME_NAME_FORMAT "hit1_%d.png"
+
+#define BOSS_DEAD_NUMBER 1
+#define BOSS_DEAD_FRAME_NUMBER 16
+#define BOSS_DEAD_FRAME_NAME_FORMAT "die1_%d.png"
+
+#define BOSS_ATTACK_NUMBER 1
+#define BOSS_ATTACK_FRAME_NUMBER 9
+#define BOSS_ATTACK_FRAME_NAME_FORMAT "attack2_%d.png"
+
 // file backgound
 #define BACKGROUND_PATH "res/bg/forest/bg_forest.png"
 #define MAP_TILE_MOSSY_PATH "res/map_tile/mossy/tile_0.plist"

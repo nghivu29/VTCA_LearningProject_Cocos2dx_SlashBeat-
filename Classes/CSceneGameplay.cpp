@@ -3,6 +3,9 @@
 #include "CEnemySphericalMonster.h"
 #include "CEnemyRock.h"
 #include "CAssetMossy.h"
+#include "CMusicBlacksmithSForge.h"
+#include "CMusicTest.h"
+#include "CMusicThroughTheFireAndFlames.h"
 
 USING_NS_CC;
 
@@ -21,11 +24,6 @@ bool CSceneGameplay::init()
 		return false;
 	}
 
-	if (!(initBackground() && initHero()))
-	{
-		return false;
-	}
-
 	initLayerOption();
 	initBtnPause();
 
@@ -35,12 +33,13 @@ bool CSceneGameplay::init()
 	_test->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - 100);
 	addChild(_test, 10);
 
-	// test music
-	//_music = CMusic_Soldiers::create();
-	_music = CMusicTest::create();
-	_music->retain();
-	addChild(_music);
+	initMusic();
 	scheduleUpdate();
+
+	if (!(initBackground() && initHero()))
+	{
+		return false;
+	}
 
 	// để sau khi định nghĩa xong _music
 	initEnemyMananager();
@@ -78,11 +77,11 @@ void CSceneGameplay::update(float delta)
 	_enemyManager->updateEnemies(delta);
 
 	// update backgound
-	//Point scrollDecrement = Point(25, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
-	//_backgroundElements->setPosition(_backgroundElements->getPosition() - scrollDecrement);
-	//_backgroundElements->updatePosition();
-	//_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
-	//_frontgroundElements->updatePosition();
+	Point scrollDecrement = Point(_bgSpeed, 0); // Tốc độ Scroll, càng lớn cuộn càng nhanh
+	_backgroundElements->setPosition(_backgroundElements->getPosition() - scrollDecrement);
+	_backgroundElements->updatePosition();
+	_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
+	_frontgroundElements->updatePosition();
 
 	//test
 	//_test->setString(StringUtils::format("%.0f", _music->_songPositionInBeats));
@@ -95,10 +94,37 @@ void CSceneGameplay::update(float delta)
 	}
 }
 
+
+
+bool CSceneGameplay::initMusic()
+{
+	// test music
+//_music = CMusic_Soldiers::create();
+	switch (_musicID)
+	{
+	case EMusic::TEST:
+		_music = CMusicTest::createMusic();
+		break;
+	case EMusic::BLACKSMITH_S_FORGE:
+		_music = CMusicBlacksmithSForge::createMusic();
+		break;
+	case EMusic::THROUGHTHEFIREANDFLAMES:
+		_music = CMusicThroughTheFireAndFlames::createMusic();
+		break;
+	default:
+		_music = CMusicTest::createMusic();
+		break;
+	}
+	_music->retain();
+	addChild(_music);
+	return true;
+}
+
 bool CSceneGameplay::initHero()
 {
 	_hero = CHeroKnight::createKnight();
 	_hero->setPosition(origin + Vec2(HERO_POS_X, visibleSize.height*GROUND1_POS_Y_RATIO));
+	_hero->setMusic(_music);
 	addChild(_hero, 0);
 	_hero->retain();
 	_hero->run2();
@@ -143,7 +169,7 @@ bool CSceneGameplay::initBackground()
 bool CSceneGameplay::initEnemyMananager()
 {
 	_enemyManager = new CEnemyManager(_music, _hero);
-	_enemyManager->setX(3);
+	_enemyManager->setX(_x);
 	_enemyManager->init();
 	return true;
 }
@@ -166,7 +192,7 @@ bool CSceneGameplay::initLayerOption()
 {
 	_layerOption = CLayerOption::createLayer();
 	_layerOption->setPosition(-5000, 0);
-	addChild(_layerOption, 5);
+	addChild(_layerOption, 20);
 	_layerOption->retain();
 	return true;
 }

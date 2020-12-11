@@ -21,6 +21,8 @@ bool CMusicTest::init()
 	_firstBeatOffset = 0.0f;
 	_beatsPerLoop = 4.0f;
 
+	addNote(0, 1, 3, 5, 7);
+
 	if (!CMusic::init())
 		return false;
 	return true;

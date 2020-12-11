@@ -12,16 +12,12 @@ void CEnemyManager::updateEnemies(float dt)
 {
 	CEnemy* enemy = nullptr;
 
-	int beat = (int)_music->_loopPositionInBeats;
-	if ((beat % 8 == 0) && beat != h_mostRecentBeat)
-	{
-		enemy = createMonster(EEnemy::ROCK_MONSTER_1, _target);
-	}
-	/*else if (beat != h_mostRecentBeat)
-	{
-		enemy = createMonster(EEnemy::SPHERICAL_MONSTER_1, _target);
-	}*/
 
+	int beat = (int)_music->_songPositionInBeats;
+	if (beat != h_mostRecentBeat)
+	{
+		enemy = createMonster(_music->whichNote(), _target);
+	}
 	h_mostRecentBeat = beat;
 
 	if (enemy)
@@ -36,6 +32,7 @@ void CEnemyManager::updateEnemies(float dt)
 			Sequence::create
 			(
 				MoveTo::create(_timeEnemyRun, posTarget),
+				CallFunc::create(CC_CALLBACK_0(CEnemyManager::logSongPosition, this)),
 				MoveTo::create(_timeEnemyRun, posEnd),
 				nullptr
 			)
@@ -51,7 +48,7 @@ CEnemy * CEnemyManager::createMonster(int enemyName, CActor* target)
 	cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 
-	CEnemy* enemy;
+	CEnemy* enemy = nullptr;
 
 	auto posStart = _target->getPosition().x + _distanceEnemyRun;
 
@@ -136,4 +133,9 @@ CEnemyManager::CEnemyManager(CMusic * music, CActor* target)
 {
 	setMusic(music);
 	setTarget(target);
+}
+
+void CEnemyManager::logSongPosition()
+{
+	log("Enemy: %f", _music->getCurrentTime());
 }

@@ -58,39 +58,40 @@ void CMusic::resume()
 	AudioEngine::resume(_audioID);
 }
 
-//int CMusic::hasNote()
-//{
-//	if (_notesChanges[_beatCurrent].size() != 0)
-//	{
-//		lastChangeFromBeat = _beatCurrent;
-//		return _notesChanges[_beatCurrent][_measureCurrent];
-//	}
-//	else
-//	{
-//		if (lastChangeFromBeat != -1)
-//		{
-//			return _notesChanges[lastChangeFromBeat][_measureCurrent];
-//		}
-//	}
-//	return 0;
-//}
-//
-//// chưa nghĩ ra thuật toán
-//bool CMusic::hasNote(int deltaFrame)
-//{
-//	
-//	return false;
-//}
-//
-//void CMusic::addChange(int beatStart,  ...)
-//{
-//	va_list ap;
-//	va_start(ap, beatStart);
-//	for (size_t i = 0; i < _measures; i++)
-//	{
-//		_notesChanges[beatStart].push_back(va_arg(ap, int));
-//	}
-//	va_end(ap);
-//}
+int CMusic::whichNote()
+{
+	if (_songPosition >= 0)
+	{
+		if (_notesChanges[(int)_songPositionInBeats].size() != 0)
+		{
+			pre_songPositionInBeats = (int)_songPositionInBeats;
+			return _notesChanges[(int)_songPositionInBeats][(int)_loopPositionInBeats];
+		}
+		else
+		{
+			if (pre_songPositionInBeats != -1000)
+			{
+				return _notesChanges[(int)pre_songPositionInBeats][(int)_loopPositionInBeats];
+			}
+		}
+	}
+	return 0;
+}
+
+void CMusic::addNote(int songPositionInBeats,  ...)
+{
+	va_list ap;
+	va_start(ap, songPositionInBeats);
+	for (size_t i = 0; i < _beatsPerLoop; i++)
+	{
+		_notesChanges[songPositionInBeats].push_back(va_arg(ap, int));
+	}
+	va_end(ap);
+}
+
+float CMusic::getCurrentTime()
+{
+	return AudioEngine::getCurrentTime(_audioID);
+}
 
 

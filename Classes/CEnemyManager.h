@@ -40,5 +40,8 @@ public:
 	// constructor
 	CEnemyManager(CMusic* music, CActor* target);
 
+
+	// debug log
+	void logSongPosition();
 };
 

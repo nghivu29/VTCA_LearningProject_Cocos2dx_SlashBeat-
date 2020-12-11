@@ -2,6 +2,13 @@
 #include "cocos2d.h"
 
 
+enum EMusic
+{
+	TEST,
+	BLACKSMITH_S_FORGE,
+	THROUGHTHEFIREANDFLAMES
+};
+
 class CMusic : public cocos2d::Node
 {
 public:
@@ -50,8 +57,7 @@ public:
 	std::map < int, std::vector<int> > _notesChanges;
 
 	// các biến hỗ trợ tính toán
-	
-
+	int pre_songPositionInBeats = -1000;
 
 
 public:
@@ -69,14 +75,11 @@ public:
 	void resume();
 
 
-	// có đánh phách hay không
-	//int hasNote();
-	// chưa nghĩ ra thuật toán
-	// bool hasNote(int deltaFrame);
+	// loại nhịp nào ( tạo kẻ thù tùy vào kết quả này )
+	int whichNote();
 
 	// đánh dấu các mốc thay đổi việc đánh phách. số lượng biến trong va_list = _measures
-	// void addChange(int beatStart, ...);
+	void addNote(int songPositionInBeats, ...);
 
-
-	
+	float getCurrentTime();
 };

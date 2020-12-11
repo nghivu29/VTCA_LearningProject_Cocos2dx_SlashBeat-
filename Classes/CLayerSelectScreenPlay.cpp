@@ -1,5 +1,9 @@
 #include "CLayerSelectScreenPlay.h"
 #include "CSceneGameplay.h"
+#include "CSceneGameplay2.h"
+
+// xoa di sau khi test xong
+#include "CEnemyBoss.h"
 
 USING_NS_CC;
 
@@ -53,6 +57,14 @@ bool CLayerSelectScreenPlay::init()
 	/*auto bg = LayerColor::create(Color4B::WHITE);
 	this->addChild(bg, -1);*/
 
+
+	// test boss;
+	auto boss = CEnemyBoss::createBoss();
+	boss->retain();
+	boss->unscheduleUpdate();
+	addChild(boss, 5);
+	boss->run1();
+
 	return true;
 }
 
@@ -63,5 +75,5 @@ void CLayerSelectScreenPlay::gotoScreen1Callback(cocos2d::Ref * pSender)
 
 void CLayerSelectScreenPlay::gotoScreen2Callback(cocos2d::Ref * pSender)
 {
-
+	Director::getInstance()->pushScene(CSceneGameplay2::createScene());
 }

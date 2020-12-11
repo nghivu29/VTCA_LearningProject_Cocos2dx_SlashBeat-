@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "CActor.h"
+#include "CObjDependOnMusic.h"
 
-class CHero : public CActor
+class CHero : public CActor, public CObjDependOnMusic
 {
 	// cac thuoc tinh
 protected:

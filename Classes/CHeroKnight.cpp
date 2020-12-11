@@ -76,6 +76,7 @@ void CHeroKnight::stun()
 
 void CHeroKnight::attack1()
 {
+	log("Hero: %f", _music->_songPositionInBeats);
 	CHero::attack1();
 	stopAllActions();
 	runAction(Sequence::create(_animatesAttack1[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2,this)), nullptr));
@@ -83,6 +84,7 @@ void CHeroKnight::attack1()
 
 void CHeroKnight::attack2()
 {
+	log("Hero: %f", _music->_songPositionInBeats);
 	CHero::attack2();
 	stopAllActions();
 	runAction(Sequence::create(_animatesAttack2[0], CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
