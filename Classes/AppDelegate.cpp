@@ -25,10 +25,10 @@
 #include "AppDelegate.h"
 //#include "HelloWorldScene.h"
 //#include "CSceneGameplay.h"
-//#include "CSceneSplash.h"
+#include "CSceneSplash.h"
 //#include "CSceneMainmenu.h"
 //#include "CSceneLoading.h"
-#include "CLayerSelectScreenPlay.h"
+//#include "CLayerSelectScreenPlay.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -124,9 +124,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
      //auto scene = CSceneGameplay::createScene();
-	//auto scene = CSceneSplash::createScene();
+	auto scene = CSceneSplash::createScene();
 	//auto scene = CSceneMainmenu::createScene();
-	auto scene = CLayerSelectScreenPlay::createScene();
+	//auto scene = CLayerSelectScreenPlay::createScene();
 
 	//auto scene = CSceneLoading::createScene();
 

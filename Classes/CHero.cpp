@@ -31,16 +31,6 @@ bool CHero::loadResource()
 
 void CHero::update(float dt)
 {
-	//if (getPosition().y > HERO_POS_DOWN.y)
-	//{
-	//	_frameFly++;
-	//	if (_frameFly == 90)
-	//	{
-	//		setPosition(HERO_POS_DOWN);
-	//		_frameFly = 0;
-	//	}
-	//}
-
 	if (_hp <= 0 && lastStatus != DEAD)
 	{
 		dead();

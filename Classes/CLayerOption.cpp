@@ -1,5 +1,7 @@
 #include "CLayerOption.h"
 #include "CSceneGameplay.h"
+#include "CSceneGameplay2.h"
+#include "CSceneGameplay3.h"
 #include "AudioEngine.h"
 
 USING_NS_CC;
@@ -14,12 +16,37 @@ bool CLayerOption::init()
 	if (!Layer::init())
 		return false;
 	
-	auto itemContinue = MenuItemFont::create("Continue", CC_CALLBACK_1(CLayerOption::playContinue, this));
+	//auto itemContinue = MenuItemFont::create("Continue", CC_CALLBACK_1(CLayerOption::playContinue, this));
+	//itemContinue->setPosition(0, 0);
+	//auto itemBack = MenuItemFont::create("Back to main menu", CC_CALLBACK_1(CLayerOption::backScene, this));
+	//itemBack->setPosition(itemContinue->getPosition() - Vec2(0, itemContinue->getContentSize().height));
+	//auto itemAgain = MenuItemFont::create("Again", CC_CALLBACK_1(CLayerOption::playAgain, this));
+	//itemAgain->setPosition(itemBack->getPosition() - Vec2(0, itemBack->getContentSize().height));
+
+	auto itemContinue = MenuItemImage::create(
+		"ui/mybutton_resume_1.png",
+		"ui/mybutton_resume_0.png",
+		CC_CALLBACK_1(CLayerOption::playContinue, this));
+
+	auto itemBack = MenuItemImage::create(
+		"ui/mybutton_selectscene_1.png",
+		"ui/mybutton_selectscene_0.png",
+		CC_CALLBACK_1(CLayerOption::backScene, this));
+
+	auto itemAgain = MenuItemImage::create(
+		"ui/mybutton_retry_1.png",
+		"ui/mybutton_retry_0.png",
+		CC_CALLBACK_1(CLayerOption::playAgain, this));
+
 	itemContinue->setPosition(0, 0);
-	auto itemBack = MenuItemFont::create("Back to main menu", CC_CALLBACK_1(CLayerOption::backScene, this));
-	itemBack->setPosition(itemContinue->getPosition() - Vec2(0, itemContinue->getContentSize().height));
-	auto itemAgain = MenuItemFont::create("Again", CC_CALLBACK_1(CLayerOption::playAgain, this));
-	itemAgain->setPosition(itemBack->getPosition() - Vec2(0, itemBack->getContentSize().height));
+	itemBack->setPosition(itemContinue->getPosition() - Vec2(itemContinue->getContentSize().width + 20, 0));
+	itemAgain->setPosition(itemContinue->getPosition() + Vec2(itemContinue->getContentSize().width + 20, 0));
+
+	/*itemContinue->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
+	itemBack->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
+	itemAgain->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);*/
+
+
 
 	Vector<MenuItem*> vector;
 	vector.pushBack(itemContinue);
@@ -27,7 +54,6 @@ bool CLayerOption::init()
 	vector.pushBack(itemAgain);
 	_menu = Menu::createWithArray(vector);
 	_menu->setPosition(0, 0);
-	_menu->setColor(Color3B::BLACK);
 	_menu->retain();
 	addChild(_menu);
 
@@ -51,7 +77,19 @@ void CLayerOption::backScene(cocos2d::Ref *)
 void CLayerOption::playAgain(cocos2d::Ref *)
 {
 	experimental::AudioEngine::stopAll();
-	Director::getInstance()->replaceScene(CSceneGameplay::createScene());
+	auto scene = Director::getInstance()->getRunningScene();
+	switch (scene->getTag())
+	{
+	case 1:
+		Director::getInstance()->replaceScene(CSceneGameplay::createScene());
+		break;
+	case 2:
+		Director::getInstance()->replaceScene(CSceneGameplay2::createScene());
+		break;
+	case 3:
+		Director::getInstance()->replaceScene(CSceneGameplay3::createScene());
+		break;
+	}
 	Director::getInstance()->resume();
 }
 

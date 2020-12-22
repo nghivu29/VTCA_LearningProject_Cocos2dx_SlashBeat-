@@ -1,4 +1,5 @@
 #include "CEnemyBoss.h"
+#include "CEnemyFromBoss0.h"
 #include "common.h"
 
 USING_NS_CC;
@@ -16,7 +17,7 @@ bool CEnemyBoss::init()
 	}
 	_enemyName = EEnemy::BOSS0;
 	setFlipX(true);
-	//setAnchorPoint(Vec2::ANCHOR_MIDDLE + Vec2(-0.11f, -0.3f));
+	setScale(BOSS_RATIO_H);
 	setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
 	_hp = 20;
@@ -52,7 +53,10 @@ void CEnemyBoss::run1()
 
 void CEnemyBoss::attack1()
 {
-
+	auto a = CEnemyFromBoss0::createSkill();
+	a->setOwner(this);
+	a->setTarget(_targetActor);
+	a->attack1();
 }
 
 void CEnemyBoss::attack2()
@@ -99,9 +103,9 @@ bool CEnemyBoss::initAttack1()
 
 bool CEnemyBoss::initAttack2()
 {
-	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 0, 4, 0.13f));
-	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 5, 13, 0.25f));
-	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 14, 30, 0.13f));
+	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 0, 4, 0.2f));
+	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 5, 13, 0.2f));
+	_animatesAttack2.pushBack(helpCreateAnimates(BOSS_ATTACK2_FRAME_NAME_FORMAT, 14, 30, 0.2f));
 	_animatesAttack2.at(1)->getAnimation()->setLoops(10);
 	return true;
 }
@@ -123,6 +127,16 @@ void CEnemyBoss::update(float dt)
 		dead();
 		unscheduleUpdate();
 	}
+
+	/*if (getPosition().x < _targetActor->getPosition().x)
+	{*/
+		if (_targetActor->_accumulation1 <= 0 && _targetActor->getStatus() != DEAD)
+		{
+			attack1();
+			_targetActor->_accumulation1 = 2;
+
+		}
+	//}
 }
 
 

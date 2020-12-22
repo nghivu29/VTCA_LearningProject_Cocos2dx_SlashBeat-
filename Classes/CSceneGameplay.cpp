@@ -6,6 +6,7 @@
 #include "CMusicBlacksmithSForge.h"
 #include "CMusicTest.h"
 #include "CMusicThroughTheFireAndFlames.h"
+#include "CMusicUnity.h"
 
 USING_NS_CC;
 
@@ -23,6 +24,7 @@ bool CSceneGameplay::init()
 	{
 		return false;
 	}
+	setTag(1);
 
 	initLayerOption();
 	initBtnPause();
@@ -44,28 +46,18 @@ bool CSceneGameplay::init()
 	// để sau khi định nghĩa xong _music
 	initEnemyMananager();
 
-	// test duong
-	auto sp = CAssetMossy::createMossy("01");
-	sp->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
-	sp->setPosition(origin + Vec2(HERO_POS_X - 50, visibleSize.height*GROUND1_POS_Y_RATIO + 20));
-	addChild(sp, 2);
-	
-	auto sp1 = CAssetMossy::createMossy("01");
-	sp1->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
-	sp1->setPosition(origin + Vec2(sp->getPosition().x + sp->getContentSize().width*sp->getScale(), visibleSize.height*GROUND1_POS_Y_RATIO + 20));
-	addChild(sp1, 2);
+	// cho hero chay
+	_hero->_animatesRun2.at(0)->setDuration(_heroRunSpeed);
 
-	auto sp2 = CAssetMossy::createMossy("01");
-	sp2->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
-	sp2->setPosition(origin + Vec2(sp1->getPosition().x + sp1->getContentSize().width*sp1->getScale(), visibleSize.height*GROUND1_POS_Y_RATIO + 20));
-	addChild(sp2, 2);
+	// khoi tao hp cua hero
+	initHpBar();
 
 	return true;
 }
 
 /*
 * Các tài nguyên được tải
-*	- tài nguyên nhân vật knight
+*	
 */
 bool CSceneGameplay::loadResource()
 {
@@ -74,6 +66,20 @@ bool CSceneGameplay::loadResource()
 
 void CSceneGameplay::update(float delta)
 {
+	//dieu kien ket thuc mang choi
+	if (_music->_isDone)
+	{
+		_test->setString("Win");
+		showScore();
+		pauseGame(this);
+		unscheduleUpdate();
+		return;
+	}
+
+	// update diem so
+	_test->setString(StringUtils::format("%d/%d", _hero->_score, _enemyManager->_countMonster));
+
+	// update ke thu
 	_enemyManager->updateEnemies(delta);
 
 	// update backgound
@@ -83,8 +89,6 @@ void CSceneGameplay::update(float delta)
 	_frontgroundElements->setPosition(_frontgroundElements->getPosition() - scrollDecrement);
 	_frontgroundElements->updatePosition();
 
-	//test
-	//_test->setString(StringUtils::format("%.0f", _music->_songPositionInBeats));
 
 	if (!_isPlayMusic)
 	{
@@ -92,8 +96,16 @@ void CSceneGameplay::update(float delta)
 		_isPlayMusic = true;
 		_layerOption->setMusicID(_music->_audioID);
 	}
-}
 
+	//update hero hp
+	updateHp(delta);
+
+
+	//log 
+	/*log("pos: %f", _music->_songPosition);
+	log("pre: %f", _music->pre_songPosition);*/
+
+}
 
 
 bool CSceneGameplay::initMusic()
@@ -110,6 +122,9 @@ bool CSceneGameplay::initMusic()
 		break;
 	case EMusic::THROUGHTHEFIREANDFLAMES:
 		_music = CMusicThroughTheFireAndFlames::createMusic();
+		break;
+	case EMusic::UNITY:
+		_music = CMusicUnity::createMusic();
 		break;
 	default:
 		_music = CMusicTest::createMusic();
@@ -142,21 +157,21 @@ bool CSceneGameplay::initBackground()
 	_frontgroundElements = InfiniteParallaxNode::create();
 	_frontgroundElements->setPosition(origin.x, origin.y);
 	
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/10_Sky.png", 0, Vec2(0.05, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/10_Sky.png", 0, Vec2(0.07, 1));
 	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/09_Forest.png", 1, Vec2(0.1, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/08_Forest.png", 2, Vec2(0.2, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/07_Forest.png", 3, Vec2(0.3, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/06_Forest.png", 4, Vec2(0.4, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/05_Particles.png", 5, Vec2(0.5, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/04_Forest.png", 6, Vec2(0.6, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy04.png", 5, Vec2(0.55, 1));
-	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy05.png", 2, Vec2(0.45, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/08_Forest.png", 2, Vec2(0.15, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/07_Forest.png", 3, Vec2(0.2, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/06_Forest.png", 4, Vec2(0.3, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/05_Particles.png", 5, Vec2(0.35, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/04_Forest.png", 6, Vec2(0.45, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy04.png", 5, Vec2(0.4, 1));
+	helpInitParallaxLayer(_backgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy05.png", 3, Vec2(0.25, 1));
 	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/03_Particles.png", 1, Vec2(0.7, 1));
-	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/02_Bushes.png", 2, Vec2(0.8, 1));
-	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/01_Mist.png", 3, Vec2(0.9, 1));
-	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy.png", 0, Vec2(0.6, 1));
-	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy02.png", 0, Vec2(0.6, 1));
-	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy03.png", -1, Vec2(0.6, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/02_Bushes.png", 4, Vec2(0.9, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/01_Mist.png", 5, Vec2(0.9, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy.png", 1, Vec2(0.6, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy02.png", 3, Vec2(0.6, 1));
+	helpInitParallaxLayer(_frontgroundElements, "res/bg/forest/Parallax Forest Background - Blue/mossy03.png", 0, Vec2(0.6, 1));
 	
 	addChild(_backgroundElements, -5);
 	addChild(_frontgroundElements, 5);
@@ -176,14 +191,18 @@ bool CSceneGameplay::initEnemyMananager()
 
 bool CSceneGameplay::initBtnPause()
 {
- 	auto itemPause = MenuItemFont::create("Pause", CC_CALLBACK_1(CSceneGameplay::pauseGame, this));
+ 	auto itemPause = MenuItemImage::create(
+		"ui/mybutton_pause_1.png",
+		"ui/mybutton_pause_0.png",
+		CC_CALLBACK_1(CSceneGameplay::pauseGame, this));
+	itemPause->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+
 
 	Vector<MenuItem*> vector;
 	vector.pushBack(itemPause);
 	_menuCtrl = Menu::createWithArray(vector);
-	_menuCtrl->setColor(Color3B::BLACK);
 	_menuCtrl->retain();
-	_menuCtrl->setPosition(origin.x + visibleSize.width - itemPause->getContentSize().width, origin.y + visibleSize.height - itemPause->getContentSize().height);
+	_menuCtrl->setPosition(origin.x + visibleSize.width - 20, origin.y + visibleSize.height - 20);
 	addChild(_menuCtrl);
 	return true;
 }
@@ -191,17 +210,72 @@ bool CSceneGameplay::initBtnPause()
 bool CSceneGameplay::initLayerOption()
 {
 	_layerOption = CLayerOption::createLayer();
+	_layerOption->setName("LayerOption");
 	_layerOption->setPosition(-5000, 0);
 	addChild(_layerOption, 20);
 	_layerOption->retain();
 	return true;
 }
 
+bool CSceneGameplay::initHpBar()
+{
+	Vec2 pos = Vec2(origin.x + 5, origin.y + visibleSize.height);
+	for (size_t i = 0; i < 10; i++)
+	{
+		auto hp = Sprite::create("ui/mybutton_heart_0.png");
+		hp->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+		hp->setPosition(pos);
+		hp->setScale(0.5f);
+		pos += Vec2(hp->getContentSize().width*0.5f+1.0f, 0);
+		hp->retain();
+		addChild(hp, 6);
+		_hpBar.pushBack(hp);
+	}
+	return true;
+}
+
+void CSceneGameplay::updateHp(float dt)
+{
+	int hp = _hero->getHp();
+	if (hp >= 0 && hp < 10 && pre_Hp != hp)
+	{
+		_hpBar.at(hp)->setTexture("ui/mybutton_heart_1.png");
+		pre_Hp = hp;
+	}
+}
+
 void CSceneGameplay::pauseGame(cocos2d::Ref *)
 {
+	if (!_music->_isDone) _music->pause();
 	_layerOption->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height/2);
-	_music->pause();
 	Director::getInstance()->pause();
+}
+
+void CSceneGameplay::showScore()
+{
+	float percent = (float)_hero->_score / _enemyManager->_countMonster;
+	std::string fileName = "ui/";
+	if (percent >= 0.8f)
+	{
+		// 3 star
+		fileName += "button_rock_greystar4.png";
+	}
+	else if (percent >= 0.5f)
+	{
+		// 2 star
+		fileName += "button_rock_greystar3.png";
+	}
+	else
+	{
+		// 1 star
+		fileName += "button_rock_greystar2.png";
+	}
+	auto sp = Sprite::create(fileName);
+	sp->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
+	sp->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height);
+	sp->setScale(0.5f);
+	addChild(sp, 10);
+
 }
 
 void CSceneGameplay::helpInitParallaxLayer(InfiniteParallaxNode* parallax, const std::string & fileName, int z, cocos2d::Vec2 ratio, float distance)

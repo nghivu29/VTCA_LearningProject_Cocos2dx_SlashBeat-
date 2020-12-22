@@ -15,6 +15,7 @@ public:
 	CREATE_FUNC(CEnemyFromBoss0);
 
 	virtual void hit();
+	virtual void attack1();
 	virtual void hitBoss();
 
 	//setter

@@ -13,7 +13,7 @@ bool CEnemySphericalMonsterFlappy1::init()
 	if (!CEnemySphericalMonster::init())
 		return false;
 	
-	setScale(0.1f);
+	setScale(SPHERICAL_MONTER_FLAPPY1_RATIO_H);
 	this->setFlipX(true);
 
 	return true;

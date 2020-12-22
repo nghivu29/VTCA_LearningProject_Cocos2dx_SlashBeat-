@@ -4,7 +4,16 @@
 
 class CEnemyManager
 {
+public:
+	// dem so luong quai
+	int _countMonster = 0;
+
+	// thoi gian lua chay
+	float _fireLifeTime = 0.5f;
+
+
 private:
+
 	CMusic* _music;
 	CActor* _target;
 

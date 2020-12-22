@@ -13,8 +13,7 @@ bool CEnemySkull::init()
 		return false;
 
 	_type = EEnemyType::HARD;
-	setScale(0.1f);
-	
+	setScale(SKULL_MONSTER_RATIO_H);
 	return true;
 }
 

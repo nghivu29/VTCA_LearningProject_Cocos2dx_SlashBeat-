@@ -13,6 +13,12 @@ public:
 
 	void gotoScreen1Callback(cocos2d::Ref* pSender);
 	void gotoScreen2Callback(cocos2d::Ref* pSender);
+	void gotoScreen3Callback(cocos2d::Ref* pSender);
+	void backSceneCallback(cocos2d::Ref* pSender);
 
+
+
+protected:
+	virtual bool initBg();
 };
 

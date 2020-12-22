@@ -5,6 +5,7 @@
 #include "CEnemySkull.h"
 #include "CEnemyBoss.h"
 #include "CEnemyFromBoss0.h"
+#include "CFire.h"
 #include "common.h"
 
 USING_NS_CC;
@@ -25,21 +26,29 @@ void CEnemyManager::updateEnemies(float dt)
 
 	if (enemy)
 	{
+		_countMonster++;
 		enemy->idle1();
 		enemy->setTarget(_target);
 		enemy->setMusic(_music);
 		auto posEnd = Vec2(_target->getPosition().x - _distanceEnemyRun, enemy->getPosition().y) - Vec2(_detalRange, 0);
 		auto posTarget  = Vec2(_target->getPosition().x, enemy->getPosition().y) + Vec2(_detalRange, 0);
 
+		if (enemy->getName() == EEnemy::FIRE_1 || enemy->getName() == EEnemy::FIRE_2)
+		{
+			Director::getInstance()->getRunningScene()->addChild(enemy, 11);
+			enemy->attack1();
+			return;
+		}
+
 		if (enemy->getName() == EEnemy::BOSS0)
 		{
 			_boss = enemy;
-			bossScript1(enemy);
 			Director::getInstance()->getRunningScene()->addChild(enemy, 10);
+			bossScript1(enemy);
 		}
 		else if (enemy->getName() > EEnemy::BOSS0)
 		{
-			enemy->setPosition(_boss->getPosition());
+			//enemy->setPosition(_boss->getPosition());
 			enemy->runAction
 			(
 				Sequence::create
@@ -100,23 +109,23 @@ CEnemy * CEnemyManager::createMonster(int enemyName, CActor* target)
 		break;
 	case EEnemy::SPHERICAL_MONSTER_FLAPPY_1:
 		enemy = CEnemySphericalMonsterFlappy1::createMonster();
-		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO + FLY_HEIGHT);
 		break;
 	case EEnemy::SPHERICAL_MONSTER_FLAPPY_2:
 		enemy = CEnemySphericalMonsterFlappy1::createMonster();
-		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO + FLY_HEIGHT);
 		break;
 	case EEnemy::SKULL_MONSTER_1:
 		enemy = CEnemySkull::createMonster();
-		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO + FLY_HEIGHT);
 		break;
 	case EEnemy::SKULL_MONSTER_2:
 		enemy = CEnemySkull::createMonster();
-		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO + FLY_HEIGHT);
 		break;
 	case EEnemy::BOSS0:
 		enemy = CEnemyBoss::createBoss();
-		enemy->setPosition(posStart, origin.y + visibleSize.height* 0.5f);
+		enemy->setPosition(posStart, origin.y + visibleSize.height* 0.4f);
 		break;
 	case EEnemy::ENEMY_FROM_BOSS0:
 		if (_boss->getHp() > 0)
@@ -125,6 +134,16 @@ CEnemy * CEnemyManager::createMonster(int enemyName, CActor* target)
 			a->setOwner(_boss);
 			enemy = a;
 		}
+		break;
+	case EEnemy::FIRE_1:
+		enemy = CFire::createFire(_fireLifeTime);
+		enemy->setPosition(origin.x, origin.y + visibleSize.height* GROUND1_POS_Y_RATIO);
+		enemy->setName(EEnemy::FIRE_1);
+		break;
+	case EEnemy::FIRE_2:
+		enemy = CFire::createFire(_fireLifeTime);
+		enemy->setPosition(origin.x, origin.y + visibleSize.height* GROUND2_POS_Y_RATIO);
+		enemy->setName(EEnemy::FIRE_2);
 		break;
 	}
 	if (enemy)
@@ -151,21 +170,23 @@ void CEnemyManager::bossScript1(CEnemy* enemy)
 	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 	auto pos = enemy->getPosition();
 
-	enemy->run1();
+	enemy->stopAllActions();
 
 	enemy->runAction
 	(
 		Sequence::create
 		(
-			MoveTo::create(4.0f, Vec2(origin.x + visibleSize.width*0.8, origin.y + visibleSize.height*0.5)),
-			DelayTime::create(10.0f),
-			MoveTo::create(4.0f, pos),
-			DelayTime::create(40.0f),
-			MoveTo::create(4.0f, Vec2(origin.x + visibleSize.width*0.8, origin.y + visibleSize.height*0.5)),
-			DelayTime::create(20.0f),
-			MoveTo::create(4.0f, Vec2(origin.x + visibleSize.width*0.5, origin.y + visibleSize.height*0.5)),
-			DelayTime::create(10.0f),
-			MoveTo::create(4.0f, Vec2(origin.x + visibleSize.width*0.3, origin.y + visibleSize.height*0.5)),
+			DelayTime::create(75.0f),
+			Spawn::create
+			(
+				MoveTo::create(4.0f, Vec2(origin.x + visibleSize.width*0.8, origin.y + visibleSize.height*0.4)),
+				Repeat::create(enemy->_animatesRun1.at(0), 3),
+				nullptr
+			),
+			enemy->_animatesAttack2.at(0),
+			Repeat::create(enemy->_animatesAttack2.at(1), 20),
+			enemy->_animatesAttack2.at(2),
+			Repeat::create(enemy->_animatesIdle1.at(0), 5),
 			nullptr
 		)
 	);

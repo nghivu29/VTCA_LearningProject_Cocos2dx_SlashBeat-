@@ -1,4 +1,5 @@
 #include "CHeroKnight.h"
+#include "AudioEngine.h"
 #include "common.h"
 USING_NS_CC;
 
@@ -32,7 +33,21 @@ void CHeroKnight::dead()
 		(
 			[this]() 
 			{
-				Director::getInstance()->getRunningScene()->pauseSchedulerAndActions();
+				auto dir = Director::getInstance();
+				auto origin = dir->getVisibleOrigin();
+				auto visibleSize = dir->getVisibleSize();
+				auto scene = dir->getRunningScene();
+				scene->pauseSchedulerAndActions();
+				experimental::AudioEngine::stopAll();
+
+				auto sp = Sprite::create("ui/button_rock_greystar1.png");
+				sp->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
+				sp->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height);
+				sp->setScale(0.5f);
+				scene->addChild(sp, 10);
+
+				scene->getChildByName("LayerOption")->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
+
 			}
 		),
 		_animatesDead.at(0),
@@ -45,6 +60,7 @@ void CHeroKnight::hit()
 	CHero::hit();
 	stopAllActions();
 	runAction(Sequence::create(_animatesHit.at(0), CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
+	_accumulation1--;
 }
 
 void CHeroKnight::idle1()

@@ -19,6 +19,8 @@ enum EEnemy
 	SPHERICAL_MONSTER_FLAPPY_2,
 	SKULL_MONSTER_1,
 	SKULL_MONSTER_2,
+	FIRE_1,
+	FIRE_2,
 	BOSS0,
 	ENEMY_FROM_BOSS0
 };
@@ -33,6 +35,9 @@ protected:
 	EEnemyType _type;
 	// tên chủng loài của quái, dùng để tạo đúng quái đúng thời điểm ở thuộc tính map trong lớp CMusic
 	EEnemy _enemyName;
+
+public:
+	float _lifeTime;
 
 	// các phương thức
 public:

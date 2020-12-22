@@ -28,6 +28,13 @@ protected:
 
 	int lastStatus = -1;
 
+public:
+	// diem tich tu
+	int _accumulation1 = 2;
+
+	// diem tieu diet quai
+	int _score = 0;
+
 	// các phương thức
 public:
 	virtual bool init();

@@ -19,13 +19,7 @@ bool CEnemy::loadResource()
 
 void CEnemy::update(float dt)
  {
-	if (getPosition().y > 700) {
-		this->unscheduleUpdate();
-		this->removeFromParent();
-		this->release();
-		//this->autorelease();
-		return;
-	}
+
 
 	if (_targetActor->getStatus() == DEAD)
 	{
@@ -77,6 +71,7 @@ void CEnemy::update(float dt)
 		{
 		case HIT:
 			hit();
+			_targetActor->_score++;
 			break;
 		case IDLE1:
 			break;
@@ -88,6 +83,14 @@ void CEnemy::update(float dt)
 		}
 	}
 	lastStatus = _status;
+
+	if (getPosition().y > 700) {
+		this->unscheduleUpdate();
+		this->removeFromParent();
+		//this->release();
+		//this->autorelease();
+		return;
+	}
 }
 
 void CEnemy::setTarget(CActor * targetActor)

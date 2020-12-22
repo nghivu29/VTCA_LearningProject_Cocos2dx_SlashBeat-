@@ -5,16 +5,26 @@
 #define HERO_POS_X 400
 #define ROCK_MONSTER_RATIO_H 0.45f
 #define SPHERICAL_MONTER_RATIO_H 0.8f
+#define SPHERICAL_MONTER_FLAPPY1_RATIO_H 0.2f
+#define SKULL_MONSTER_RATIO_H 0.25f
+#define BOSS_RATIO_H 2.2f
+#define SKILL1_BOSS_RATIO_H 0.4f
 #define GROUND1_POS_Y_RATIO 0.10f
 #define GROUND2_POS_Y_RATIO 0.5f
+#define FLY_HEIGHT 80.0f
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define KNIGHT_RATIO_H 0.35f
 #define HERO_POS_X 400
 #define ROCK_MONSTER_RATIO_H 0.2f
 #define SPHERICAL_MONTER_RATIO_H 0.4f
+#define SPHERICAL_MONTER_FLAPPY1_RATIO_H 0.1f
+#define SKULL_MONSTER_RATIO_H 0.1f
+#define BOSS_RATIO_H 1.0f
+#define SKILL1_BOSS_RATIO_H 0.2f
 #define GROUND1_POS_Y_RATIO 0.10f
 #define GROUND2_POS_Y_RATIO 0.5f
+#define FLY_HEIGHT 50.0f
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
@@ -93,7 +103,7 @@
 #define ROCKMONSTER_PATH "res/actor/enemy/rock_monster/rock-monster.png"
 
 // boss
-#define BOSS0_PATH "res/actor/enemy/boss/boss0.plist"
+#define BOSS0_PATH "res/actor/enemy/boss/test2.plist"
 
 #define BOSS_IDLE_NUMBER 1
 #define BOSS_IDLE_FRAME_NUMBER 8
@@ -114,6 +124,14 @@
 #define BOSS_ATTACK2_NUMBER 1
 #define BOSS_ATTACK2_FRAME_NUMBER 31
 #define BOSS_ATTACK2_FRAME_NAME_FORMAT "attack2_%d.png"
+
+// dragon
+#define DRAGON_PATH "res/actor/enemy/boss2/dragon.plist"
+		
+#define DRAGON_RUN1_NUMBER 1
+#define DRAGON_RUN1_FRAME_NUMBER 20
+#define DRAGON_RUN1_FRAME_NAME_FORMAT "dragon%d.png"
+	
 
 // file backgound
 #define BACKGROUND_PATH "res/bg/forest/bg_forest.png"

@@ -9,10 +9,16 @@ CSceneGameplay2 * CSceneGameplay2::createScene()
 
 bool CSceneGameplay2::init()
 {
-	_x = 4;
-	_bgSpeed = 20;
-	_heroRunSpeed = 0;
-	_musicID = 2;
+	_x = 8;
+	_bgSpeed = 0;
+	_heroRunSpeed = 0.5f;
+	_musicID = 1;
 
-	return CSceneGameplay::init();
+	if (!CSceneGameplay::init())
+		return false;
+
+	setTag(2);
+	_enemyManager->_fireLifeTime = 10.0f;
+
+	return true;
 }

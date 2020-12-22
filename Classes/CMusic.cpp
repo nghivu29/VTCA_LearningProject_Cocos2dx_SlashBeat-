@@ -18,6 +18,12 @@ void CMusic::StartMusic()
 	//Record the time when the music starts
 	_dspSongTime = AudioEngine::getCurrentTime(_audioID);
 
+	//finish call
+	AudioEngine::setFinishCallback(_audioID, [&, this](int, const std::string&) 
+		{
+			_isDone = true;
+		});
+
 	// run update
 	scheduleUpdate();
 }
@@ -58,20 +64,39 @@ void CMusic::resume()
 	AudioEngine::resume(_audioID);
 }
 
+
 int CMusic::whichNote()
 {
+	//if (_songPosition >= 0)
+	//{
+	//	if (_notesChanges[(int)_songPositionInBeats].size() != 0)
+	//	{
+	//		pre_songPositionInBeats = (int)_songPositionInBeats;
+	//		return _notesChanges[(int)_songPositionInBeats][(int)_loopPositionInBeats];
+	//	}
+	//	else
+	//	{
+	//		if (pre_songPositionInBeats != -1000)
+	//		{
+	//			return _notesChanges[(int)pre_songPositionInBeats][(int)_loopPositionInBeats];
+	//		}
+	//	}
+	//}
+	//return 0;
+
 	if (_songPosition >= 0)
 	{
-		if (_notesChanges[(int)_songPositionInBeats].size() != 0)
+		pre_songPosition = _songPosition;
+		if (_notesChanges[(int)_completedLoops].size() != 0)
 		{
-			pre_songPositionInBeats = (int)_songPositionInBeats;
-			return _notesChanges[(int)_songPositionInBeats][(int)_loopPositionInBeats];
+			pre_completedLoops = (int)_completedLoops;
+			return _notesChanges[(int)_completedLoops][(int)_loopPositionInBeats];
 		}
 		else
 		{
-			if (pre_songPositionInBeats != -1000)
+			if (pre_completedLoops != -1000)
 			{
-				return _notesChanges[(int)pre_songPositionInBeats][(int)_loopPositionInBeats];
+				return _notesChanges[(int)pre_completedLoops][(int)_loopPositionInBeats];
 			}
 		}
 	}

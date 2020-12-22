@@ -62,16 +62,22 @@ list(APPEND GAME_SOURCE
         Classes/CLayerOption.cpp
         Classes/CMusic.cpp
         Classes/CMusicTest.cpp
+        Classes/CMusicBlacksmithSForge.cpp
+        Classes/CMusicThroughTheFireAndFlames.cpp
         Classes/CObjDependOnMusic.cpp
         Classes/CSceneGameplay.cpp
+        Classes/CSceneGameplay2.cpp
         Classes/CSceneLoading.cpp
         Classes/CSceneMainmenu.cpp
         Classes/CSceneSplash.cpp
         Classes/InfiniteParallaxNode.cpp
         Classes/CEnemySkull.cpp
         Classes/CEnemySphericalMonsterFlappy1.cpp
+        Classes/CEnemyBoss.cpp
+        Classes/CEnemyFromBoss0.cpp
         Classes/CAssetMossy.cpp
         Classes/CLayerSelectScreenPlay.cpp
+        Classes/CFire.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -89,16 +95,22 @@ list(APPEND GAME_HEADER
         Classes/CLayerOption.h
         Classes/CMusic.h
         Classes/CMusicTest.h
+        Classes/CMusicBlacksmithSForge.h
+        Classes/CMusicThroughTheFireAndFlames.h
         Classes/CObjDependOnMusic.h
         Classes/CSceneGameplay.h
+        Classes/CSceneGameplay2.h
         Classes/CSceneLoading.h
         Classes/CSceneMainmenu.h
         Classes/CSceneSplash.h
         Classes/InfiniteParallaxNode.h
         Classes/CEnemySkull.h
         Classes/CEnemySphericalMonsterFlappy1.h
+        Classes/CEnemyBoss.h
+        Classes/CEnemyFromBoss0.h
         Classes/CAssetMossy.h
         Classes/CLayerSelectScreenPlay.h
+        Classes/CFire.h
         )
 
 if(ANDROID)

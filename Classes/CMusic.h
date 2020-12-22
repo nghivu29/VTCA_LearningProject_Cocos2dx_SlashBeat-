@@ -6,7 +6,8 @@ enum EMusic
 {
 	TEST,
 	BLACKSMITH_S_FORGE,
-	THROUGHTHEFIREANDFLAMES
+	THROUGHTHEFIREANDFLAMES,
+	UNITY
 };
 
 class CMusic : public cocos2d::Node
@@ -51,13 +52,17 @@ public:
 	//The current relative position of the song within the loop measured between 0 and 1.
 	float _loopPositionInAnalog;
 
-	
+	// bai nhac hoan thanh hay chua
+	bool _isDone = false;
 
 	// mảng đánh dấu
 	std::map < int, std::vector<int> > _notesChanges;
 
 	// các biến hỗ trợ tính toán
-	int pre_songPositionInBeats = -1000;
+	int pre_completedLoops = -1000;
+	float pre_songPosition = 0;
+
+	
 
 
 public:

@@ -22,6 +22,7 @@ protected:
 
 	cocos2d::Menu* _menuCtrl;
 	CLayerOption* _layerOption;
+	cocos2d::Vector<cocos2d::Sprite*> _hpBar;
 	cocos2d::ParallaxNode* paraBg;
 	cocos2d::ParallaxNode* paraBg2;
 	InfiniteParallaxNode* _backgroundElements;
@@ -30,13 +31,13 @@ protected:
 //các thuộc tính dùng đẻ tùy chỉnh màng chơi
 
 	// chỉnh tốc độ di chuyển của enemy ( x càng lớn enemy đi càng chậm )
-	int _x = 2;
+	int _x = 8;
 
 	// chỉnh tốc độ của backround (_bgSpeed càng lớn càng nhanh )
-	float _bgSpeed = 14;
+	float _bgSpeed = 0;
 
 	// chinh toc do chay cua hero;
-	float _heroRunSpeed;
+	float _heroRunSpeed = 0.5f;
 
 	// chọn bg music ( tạo hàm switch case )
 	int _musicID = 1;
@@ -73,8 +74,14 @@ protected:
 	virtual bool initEnemyMananager();
 	virtual bool initBtnPause();
 	virtual bool initLayerOption();
+	virtual bool initHpBar();
+
+	int pre_Hp = -1;
+	virtual void updateHp(float dt);
 
 	void pauseGame(cocos2d::Ref*);
+
+	void showScore();
 
 	void helpInitParallaxLayer(InfiniteParallaxNode* parallax, const std::string &fileName, int z, cocos2d::Vec2 ratio, float distance = 0);
 
