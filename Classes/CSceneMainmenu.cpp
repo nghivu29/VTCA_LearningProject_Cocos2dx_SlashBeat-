@@ -1,6 +1,6 @@
 #include "CSceneMainmenu.h"
 #include "CLayerSelectScreenPlay.h"
-
+#include "common.h"
 
 USING_NS_CC;
 
@@ -70,8 +70,8 @@ bool CSceneMainmenu::initMenu()
 	_itemPlayGame->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
 	_itemExitGame->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
 
-	_itemPlayGame->setScale(0.3f);
-	_itemExitGame->setScale(0.3f);
+	_itemPlayGame->setScale(BTN_PLAYGAME_RATIO);
+	_itemExitGame->setScale(BTN_PLAYGAME_RATIO);
 
 	_itemPlayGame->setPosition(0, 0);
 	_itemExitGame->setPosition(_itemPlayGame->getPosition() - Vec2(0, _itemPlayGame->getContentSize().height * _itemPlayGame->getScale() + 20));

@@ -5,7 +5,6 @@
 
 // xoa di sau khi test xong
 #include "CEnemyBoss.h"
-#include "CFire.h"
 
 
 USING_NS_CC;
@@ -66,16 +65,6 @@ bool CLayerSelectScreenPlay::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 	
-	auto menuFrame = Sprite::create("ui/frame.png");
-	ratioX = visibleSize.width / menuFrame->getContentSize().width;
-	ratioY = visibleSize.height / menuFrame->getContentSize().height;
-	menuFrame->setScale(ratioX*0.8, ratioY*0.9);
-	menuFrame->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
-	this->addChild(menuFrame, 0);
-	
-	/*auto bg = LayerColor::create(Color4B::WHITE);
-	this->addChild(bg, -1);*/
-
 
 	// test boss;
 	auto boss = CEnemyBoss::createBoss();

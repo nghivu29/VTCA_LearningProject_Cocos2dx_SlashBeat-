@@ -67,9 +67,11 @@ list(APPEND GAME_SOURCE
         Classes/CObjDependOnMusic.cpp
         Classes/CSceneGameplay.cpp
         Classes/CSceneGameplay2.cpp
+        Classes/CSceneGameplay3.cpp
         Classes/CSceneLoading.cpp
         Classes/CSceneMainmenu.cpp
         Classes/CSceneSplash.cpp
+        Classes/CSceneSelectScreenplay.cpp
         Classes/InfiniteParallaxNode.cpp
         Classes/CEnemySkull.cpp
         Classes/CEnemySphericalMonsterFlappy1.cpp
@@ -78,6 +80,7 @@ list(APPEND GAME_SOURCE
         Classes/CAssetMossy.cpp
         Classes/CLayerSelectScreenPlay.cpp
         Classes/CFire.cpp
+        Classes/CMusicUnity.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -100,9 +103,11 @@ list(APPEND GAME_HEADER
         Classes/CObjDependOnMusic.h
         Classes/CSceneGameplay.h
         Classes/CSceneGameplay2.h
+        Classes/CSceneGameplay3.h
         Classes/CSceneLoading.h
         Classes/CSceneMainmenu.h
         Classes/CSceneSplash.h
+        Classes/CSceneSelectScreenplay.h
         Classes/InfiniteParallaxNode.h
         Classes/CEnemySkull.h
         Classes/CEnemySphericalMonsterFlappy1.h
@@ -111,6 +116,7 @@ list(APPEND GAME_HEADER
         Classes/CAssetMossy.h
         Classes/CLayerSelectScreenPlay.h
         Classes/CFire.h
+        Classes/CMusicUnity.h
         )
 
 if(ANDROID)
