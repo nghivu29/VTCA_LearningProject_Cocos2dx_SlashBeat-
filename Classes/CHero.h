@@ -24,13 +24,17 @@ public:
 	virtual void update(float dt);
 
 
-protected:
+public:
 	virtual bool initWin32Ctrl();
 	virtual bool initAndroidCtrl();
-	virtual bool initCtrl();
 
 	virtual void runTeleEffect();
 	virtual void runAfterTeleEffect();
 
+public:
+	void atk1();
+	void atk2();
+	void atk4();
+	void atk5();
 };
 

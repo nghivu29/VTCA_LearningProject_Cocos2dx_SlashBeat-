@@ -76,6 +76,10 @@ protected:
 	virtual bool initLayerOption();
 	virtual bool initHpBar();
 
+	virtual bool initHeroCtr();
+	virtual bool initHeroWin32Ctr();
+	virtual bool initHeroAndroidCtr();
+
 	int pre_Hp = -1;
 	virtual void updateHp(float dt);
 

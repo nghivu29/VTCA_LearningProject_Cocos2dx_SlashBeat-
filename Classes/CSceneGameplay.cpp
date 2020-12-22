@@ -7,6 +7,7 @@
 #include "CMusicTest.h"
 #include "CMusicThroughTheFireAndFlames.h"
 #include "CMusicUnity.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -51,6 +52,8 @@ bool CSceneGameplay::init()
 
 	// khoi tao hp cua hero
 	initHpBar();
+
+	initHeroCtr();
 
 	return true;
 }
@@ -196,7 +199,7 @@ bool CSceneGameplay::initBtnPause()
 		"ui/mybutton_pause_0.png",
 		CC_CALLBACK_1(CSceneGameplay::pauseGame, this));
 	itemPause->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
-
+	itemPause->setScale(BTN_PAUSEGAME_RATIO);
 
 	Vector<MenuItem*> vector;
 	vector.pushBack(itemPause);
@@ -225,12 +228,100 @@ bool CSceneGameplay::initHpBar()
 		auto hp = Sprite::create("ui/mybutton_heart_0.png");
 		hp->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 		hp->setPosition(pos);
-		hp->setScale(0.5f);
+		hp->setScale(HP_ICON_RATIO);
 		pos += Vec2(hp->getContentSize().width*0.5f+1.0f, 0);
 		hp->retain();
 		addChild(hp, 6);
 		_hpBar.pushBack(hp);
 	}
+	return true;
+}
+
+bool CSceneGameplay::initHeroCtr()
+{
+	switch (CC_TARGET_PLATFORM)
+	{
+	case CC_PLATFORM_ANDROID:
+	case CC_PLATFORM_IOS:
+		initHeroAndroidCtr();
+		break;
+	case CC_PLATFORM_WIN32:
+		initHeroWin32Ctr();
+		break;
+	}
+	return true;
+}
+
+bool CSceneGameplay::initHeroWin32Ctr()
+{
+	return _hero->initWin32Ctrl();
+}
+
+bool CSceneGameplay::initHeroAndroidCtr()
+{
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
+
+	auto line1 = origin.y + visibleSize.height*0.15;
+	auto line2 = origin.y + visibleSize.height*0.4;
+
+	auto itemAtk1 = ui::Button::create("ui/btn_atk/btn_atk_01.png", "ui/btn_atk/btn_atk_01.png", "ui/btn_atk/btn_atk_01.png");
+	itemAtk1->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type) {
+		case ui::Widget::TouchEventType::BEGAN: 
+			_hero->atk1();
+			break;
+		}
+	});
+
+	auto itemAtk2 = ui::Button::create("ui/btn_atk/btn_atk_02.png", "ui/btn_atk/btn_atk_02.png", "ui/btn_atk/btn_atk_02.png");
+	itemAtk2->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type) {
+		case ui::Widget::TouchEventType::BEGAN:
+			_hero->atk2();
+			break;
+		}
+		});
+
+	auto itemAtk4 = ui::Button::create("ui/btn_atk/btn_atk_04.png", "ui/btn_atk/btn_atk_04.png", "ui/btn_atk/btn_atk_04.png");
+	itemAtk4->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type) {
+		case ui::Widget::TouchEventType::BEGAN:
+			_hero->atk4();
+			break;
+		}
+	});
+
+	auto itemAtk5 = ui::Button::create("ui/btn_atk/btn_atk_05.png", "ui/btn_atk/btn_atk_05.png", "ui/btn_atk/btn_atk_05.png");
+	itemAtk5->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type) {
+		case ui::Widget::TouchEventType::BEGAN:
+			_hero->atk5();
+			break;
+		}
+	});
+
+	itemAtk1->setPosition(origin + Vec2(visibleSize.width*0.15, line1));
+	itemAtk2->setPosition(origin + Vec2(visibleSize.width*0.85, line1));
+	itemAtk4->setPosition(origin + Vec2(visibleSize.width*0.05, line2));
+	itemAtk5->setPosition(origin + Vec2(visibleSize.width*0.95, line2));
+
+	itemAtk1->setScale(3);
+	itemAtk2->setScale(3);
+	itemAtk4->setScale(3);
+	itemAtk5->setScale(3);
+
+	itemAtk1->setOpacity(100);
+	itemAtk2->setOpacity(100);
+	itemAtk4->setOpacity(100);
+	itemAtk5->setOpacity(100);
+
+
+	addChild(itemAtk1, 10);
+	addChild(itemAtk2, 10);
+	addChild(itemAtk4, 10);
+	addChild(itemAtk5, 10);
+
 	return true;
 }
 

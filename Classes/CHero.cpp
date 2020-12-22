@@ -18,7 +18,6 @@ bool CHero::init()
 
 	setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	
-	initCtrl();
 	scheduleUpdate();
 
 	return true;
@@ -172,19 +171,6 @@ bool CHero::initAndroidCtrl()
 	return true;
 }
 
-bool CHero::initCtrl()
-{
-	switch (CC_TARGET_PLATFORM)
-	{
-	case CC_PLATFORM_ANDROID:
-		initAndroidCtrl();
-		break;
-	case CC_PLATFORM_WIN32:
-		initWin32Ctrl();
-		break;
-	}
-	return true;
-}
 
 void CHero::runTeleEffect()
 {
@@ -237,6 +223,51 @@ void CHero::runAfterTeleEffect()
 	duAnh->runAction(Sequence::create(DelayTime::create(0.2f), RemoveSelf::create(), nullptr));
 
 }
+
+void CHero::atk1()
+{
+	if (getPosition() == HERO_POS_UP)
+	{
+		runTeleEffect();
+		setPosition(HERO_POS_DOWN);
+		runAfterTeleEffect();
+	}
+	attack2();
+}
+
+void CHero::atk2()
+{
+	if (getPosition() == HERO_POS_UP)
+	{
+		runTeleEffect();
+		setPosition(HERO_POS_DOWN);
+		runAfterTeleEffect();
+	}
+	attack1();
+}
+
+void CHero::atk4()
+{
+	if (getPosition() == HERO_POS_DOWN)
+	{
+		runTeleEffect();
+		setPosition(HERO_POS_UP);
+		runAfterTeleEffect();
+	}
+	attack2();
+}
+
+void CHero::atk5()
+{
+	if (getPosition() == HERO_POS_DOWN)
+	{
+		runTeleEffect();
+		setPosition(HERO_POS_UP);
+		runAfterTeleEffect();
+	}
+	attack1();
+}
+
 
 
 

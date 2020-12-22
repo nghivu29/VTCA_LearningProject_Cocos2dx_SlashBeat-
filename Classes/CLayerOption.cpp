@@ -3,6 +3,7 @@
 #include "CSceneGameplay2.h"
 #include "CSceneGameplay3.h"
 #include "AudioEngine.h"
+#include "common.h"
 
 USING_NS_CC;
 
@@ -38,9 +39,13 @@ bool CLayerOption::init()
 		"ui/mybutton_retry_0.png",
 		CC_CALLBACK_1(CLayerOption::playAgain, this));
 
+	itemContinue->setScale(BTN_PAUSEGAME_RATIO);
+	itemBack->setScale(BTN_PAUSEGAME_RATIO);
+	itemAgain->setScale(BTN_PAUSEGAME_RATIO);
+
 	itemContinue->setPosition(0, 0);
-	itemBack->setPosition(itemContinue->getPosition() - Vec2(itemContinue->getContentSize().width + 20, 0));
-	itemAgain->setPosition(itemContinue->getPosition() + Vec2(itemContinue->getContentSize().width + 20, 0));
+	itemBack->setPosition(itemContinue->getPosition() - Vec2(itemContinue->getContentSize().width * itemContinue->getScale() + 20, 0));
+	itemAgain->setPosition(itemContinue->getPosition() + Vec2(itemContinue->getContentSize().width * itemContinue->getScale() + 20, 0));
 
 	/*itemContinue->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
 	itemBack->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);

@@ -48,6 +48,7 @@ bool CFire::init()
 
 	_dragon = Sprite::create();
 	_dragon->setPosition(-1000, 150);
+	_dragon->setScale(DRAGON_RATIO);
 	addChild(_dragon);
 	run1();
 
