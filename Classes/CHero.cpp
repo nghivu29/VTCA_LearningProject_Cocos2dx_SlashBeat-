@@ -17,7 +17,7 @@ bool CHero::init()
 		return false;
 
 	setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
-	
+
 	scheduleUpdate();
 
 	return true;
@@ -222,6 +222,26 @@ void CHero::runAfterTeleEffect()
 	duAnh->runAction(FadeOut::create(0.2));
 	duAnh->runAction(Sequence::create(DelayTime::create(0.2f), RemoveSelf::create(), nullptr));
 
+}
+
+void CHero::hit()
+{
+	CActor::hit();
+	_combo = 0;
+}
+
+void CHero::comboEffect1()
+{
+	Sprite* duAnh;
+	duAnh = Sprite::createWithSpriteFrame(this->getDisplayFrame());
+	duAnh->setColor(Color3B::BLUE);
+	duAnh->setOpacity(60);
+	duAnh->setScale(1.2f);
+	duAnh->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	duAnh->setPosition(0, 0);
+	addChild(duAnh, -1);
+	duAnh->runAction(FadeOut::create(0.3));
+	duAnh->runAction(Sequence::create(DelayTime::create(0.6), RemoveSelf::create(), nullptr));
 }
 
 void CHero::atk1()

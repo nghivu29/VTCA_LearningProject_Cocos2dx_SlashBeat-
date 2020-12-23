@@ -83,6 +83,9 @@ protected:
 	int pre_Hp = -1;
 	virtual void updateHp(float dt);
 
+	int temp = -100;
+	virtual void updateCombo(float dt);
+
 	void pauseGame(cocos2d::Ref*);
 
 	void showScore();

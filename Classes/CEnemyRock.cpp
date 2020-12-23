@@ -21,7 +21,8 @@ bool CEnemyRock::init()
 void CEnemyRock::hit()
 {
 	stopAllActions();
-	runAction(MoveBy::create(0.5, Vec2(1000, 710)));
-	runAction(FadeOut::create(0.5f));
+	CEnemy::hit();
+	runAction(MoveBy::create(1.0f, Vec2(1000, 710)));
+	runAction(FadeOut::create(0.8f));
 }
 

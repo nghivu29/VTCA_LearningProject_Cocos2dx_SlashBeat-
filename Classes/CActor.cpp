@@ -2,6 +2,11 @@
 
 USING_NS_CC;
 
+CActor::~CActor()
+{
+	log("deleted actor");
+}
+
 bool CActor::init()
 {
 	_status = EActorStatus::NONE;

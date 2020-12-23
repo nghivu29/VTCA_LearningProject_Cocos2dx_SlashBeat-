@@ -29,6 +29,9 @@ protected:
 	int lastStatus = -1;
 
 public:
+	// combo
+	int _combo = 0;
+
 	// diem tich tu
 	int _accumulation1 = 2;
 
@@ -37,6 +40,7 @@ public:
 
 	// các phương thức
 public:
+	~CActor();
 	virtual bool init();
 	virtual bool loadResource();
 

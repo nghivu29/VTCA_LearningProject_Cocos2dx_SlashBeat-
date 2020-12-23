@@ -31,9 +31,10 @@ bool CSceneGameplay::init()
 	initBtnPause();
 
 	// lable test
-	_test = Label::createWithTTF("0", "fonts/Marker Felt.ttf", 50);
+	_test = Label::createWithTTF("x0", "fonts/Marker Felt.ttf", 70);
+	_test->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 	_test->setColor(Color3B::RED);
-	_test->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height - 100);
+	_test->setPosition(origin.x + visibleSize.width*0.01, origin.y + visibleSize.height*0.85);
 	addChild(_test, 10);
 
 	initMusic();
@@ -80,7 +81,7 @@ void CSceneGameplay::update(float delta)
 	}
 
 	// update diem so
-	_test->setString(StringUtils::format("%d/%d", _hero->_score, _enemyManager->_countMonster));
+	updateCombo(delta);
 
 	// update ke thu
 	_enemyManager->updateEnemies(delta);
@@ -333,6 +334,23 @@ void CSceneGameplay::updateHp(float dt)
 		_hpBar.at(hp)->setTexture("ui/mybutton_heart_1.png");
 		pre_Hp = hp;
 	}
+}
+
+void CSceneGameplay::updateCombo(float dt)
+{
+	if (_hero->_combo >= COMBO2_NUMBER)
+		_test->setString("x20");
+	else if (_hero->_combo >= COMBO1_NUMBER)
+		_test->setString("x5");
+	else
+		_test->setString("x0");
+
+	int a = (int)_music->_loopPositionInBeats;
+	if (a != temp && a % _x == 0)
+	{
+		_test->runAction(Sequence::create(ScaleTo::create(0, 1.5f), ScaleTo::create(0.2f, 1.0f), nullptr));
+	}
+	temp = a;
 }
 
 void CSceneGameplay::pauseGame(cocos2d::Ref *)

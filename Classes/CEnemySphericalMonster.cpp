@@ -25,7 +25,8 @@ void CEnemySphericalMonster::dead()
 void CEnemySphericalMonster::hit()
 {
 	stopAllActions();
-	runAction(MoveBy::create(0.5, Vec2(1000, 1000)));
+	CEnemy::hit();
+	runAction(MoveBy::create(0.8f, Vec2(1000, 1000)));
 	runAction(Sequence::create(_animatesHit.at(0), FadeOut::create(0.5f), nullptr));
 }
 

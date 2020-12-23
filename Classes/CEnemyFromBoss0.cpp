@@ -22,11 +22,12 @@ bool CEnemyFromBoss0::init()
 void CEnemyFromBoss0::hit()
 {
 	stopAllActions();
+	CEnemy::hit();
 	runAction(MoveTo::create(0.3f, _owner->getPosition()));
 	runAction(Sequence::create
 	(
 		FadeOut::create(0.8f),
-		FadeOut::create(1),
+		RemoveSelf::create(1.0f),
 		nullptr
 	));
 	if (_owner->getHp() > 0)

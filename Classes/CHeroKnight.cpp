@@ -96,6 +96,7 @@ void CHeroKnight::attack1()
 	CHero::attack1();
 	stopAllActions();
 	runAction(Sequence::create(_animatesAttack1.at(0), CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2,this)), nullptr));
+	if(_combo >= COMBO2_NUMBER) comboEffect1();
 }
 
 void CHeroKnight::attack2()
@@ -104,7 +105,7 @@ void CHeroKnight::attack2()
 	CHero::attack2();
 	stopAllActions();
 	runAction(Sequence::create(_animatesAttack2.at(0), CallFunc::create(CC_CALLBACK_0(CHeroKnight::run2, this)), nullptr));
-
+	if(_combo >= COMBO2_NUMBER) comboEffect1();
 }
 
 void CHeroKnight::walk1()

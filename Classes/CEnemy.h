@@ -37,7 +37,9 @@ protected:
 	EEnemy _enemyName;
 
 public:
+	cocos2d::ParticleSystem* _effect;
 	float _lifeTime;
+
 
 	// các phương thức
 public:
@@ -49,6 +51,9 @@ public:
 
 	// up date status
 	virtual void update(float dt);
+
+	//
+	virtual void hit();
 
 	// setter
 	void setTarget(CActor* targetActor);

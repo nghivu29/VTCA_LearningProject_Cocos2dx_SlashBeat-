@@ -70,6 +70,8 @@ void CFire::update(float dt)
 			}
 		}
 	}
+
+
 }
 
 void CFire::run1()

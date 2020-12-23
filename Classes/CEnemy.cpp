@@ -1,4 +1,5 @@
 #include "CEnemy.h"
+#include "common.h"
 
 USING_NS_CC;
 
@@ -72,6 +73,7 @@ void CEnemy::update(float dt)
 		case HIT:
 			hit();
 			_targetActor->_score++;
+			_targetActor->_combo++;
 			break;
 		case IDLE1:
 			break;
@@ -84,12 +86,45 @@ void CEnemy::update(float dt)
 	}
 	lastStatus = _status;
 
-	if (getPosition().y > 700) {
+	if (getPosition().y > 700 || getPosition().x < -200) {
 		this->unscheduleUpdate();
 		this->removeFromParent();
 		//this->release();
 		//this->autorelease();
 		return;
+	}
+}
+
+void CEnemy::hit()
+{
+	if (_targetActor->_combo >= COMBO1_NUMBER)
+	{
+		switch (_enemyName)
+		{
+		case NOPE:
+		case SPHERICAL_MONSTER_1:
+		case SPHERICAL_MONSTER_2:
+		case SPHERICAL_MONSTER_FLAPPY_1:
+		case SPHERICAL_MONSTER_FLAPPY_2:
+		case BOSS0:
+		case ENEMY_FROM_BOSS0:
+			_effect = ParticleSystemQuad::create("effect/particle_texture.plist");
+			break;
+		case ROCK_MONSTER_1:
+		case ROCK_MONSTER_2:
+		case SKULL_MONSTER_1:
+		case SKULL_MONSTER_2:
+			_effect = ParticleSystemQuad::create("effect/particle_texture1.plist");
+		default:
+			break;
+		}
+		_effect->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+		_effect->setPosition(0, 0);
+
+		if (_targetActor->_combo >= COMBO2_NUMBER) _effect->setScale(1 / this->getScale());
+		else _effect->setScale((1/this->getScale()) * 0.4f);
+		
+		addChild(_effect, 5);
 	}
 }
 

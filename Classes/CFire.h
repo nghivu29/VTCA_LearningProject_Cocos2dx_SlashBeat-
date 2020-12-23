@@ -6,7 +6,6 @@ class CFire : public CEnemy
 {
 public:
 	int _lane;;
-	cocos2d::ParticleFire* _effect;
 	cocos2d::Sprite* _dragon;
 
 private:

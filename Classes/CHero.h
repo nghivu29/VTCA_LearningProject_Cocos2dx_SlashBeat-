@@ -32,6 +32,9 @@ public:
 	virtual void runAfterTeleEffect();
 
 public:
+	virtual void hit();
+
+	virtual void comboEffect1();
 	void atk1();
 	void atk2();
 	void atk4();

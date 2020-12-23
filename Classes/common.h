@@ -36,6 +36,8 @@
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
+#define COMBO1_NUMBER 5
+#define COMBO2_NUMBER 20
 
 #define KNIGHT_PATH "res/actor/hero/knight/"
 
