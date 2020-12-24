@@ -37,6 +37,7 @@ bool CSceneMainmenu::initBg()
 {
 	// img
 	auto bg = Sprite::create("res/bg/bg02.jpg");
+	bg->setPosition(origin);
 	bg->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	bg->setScale(visibleSize.width / bg->getContentSize().width, visibleSize.height / bg->getContentSize().height);
 	addChild(bg, -2);

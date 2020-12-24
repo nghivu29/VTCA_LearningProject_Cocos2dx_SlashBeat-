@@ -6,6 +6,8 @@
 #include "CEnemyManager.h"
 #include "CLayerOption.h"
 #include "InfiniteParallaxNode.h"
+#include "ui/CocosGUI.h"
+
 
 class CSceneGameplay : public cocos2d::Scene
 {
@@ -27,6 +29,12 @@ protected:
 	cocos2d::ParallaxNode* paraBg2;
 	InfiniteParallaxNode* _backgroundElements;
 	InfiniteParallaxNode* _frontgroundElements;
+
+// cac nut dieu kien cua android
+	cocos2d::ui::Button* itemAtk1;
+	cocos2d::ui::Button* itemAtk2;
+	cocos2d::ui::Button* itemAtk4;
+	cocos2d::ui::Button* itemAtk5;
 
 //các thuộc tính dùng đẻ tùy chỉnh màng chơi
 

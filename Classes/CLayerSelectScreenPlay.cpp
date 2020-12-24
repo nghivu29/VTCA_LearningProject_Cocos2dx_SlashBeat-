@@ -108,6 +108,7 @@ bool CLayerSelectScreenPlay::initBg()
 	cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
 	auto bg = Sprite::create("res/bg/bg01.png");
+	bg->setPosition(origin);
 	bg->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	bg->setScale(visibleSize.width / bg->getContentSize().width, visibleSize.height / bg->getContentSize().height);
 

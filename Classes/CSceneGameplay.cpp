@@ -7,7 +7,6 @@
 #include "CMusicTest.h"
 #include "CMusicThroughTheFireAndFlames.h"
 #include "CMusicUnity.h"
-#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -55,6 +54,7 @@ bool CSceneGameplay::init()
 	initHpBar();
 
 	initHeroCtr();
+	//initHeroAndroidCtr();
 
 	return true;
 }
@@ -255,6 +255,16 @@ bool CSceneGameplay::initHeroCtr()
 
 bool CSceneGameplay::initHeroWin32Ctr()
 {
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = [this](cocos2d::EventKeyboard::KeyCode k, cocos2d::Event*) {
+		switch (k)
+		{
+		case cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE:
+			this->pauseGame(this);
+			break;
+		}
+	};
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	return _hero->initWin32Ctrl();
 }
 
@@ -266,38 +276,54 @@ bool CSceneGameplay::initHeroAndroidCtr()
 	auto line1 = origin.y + visibleSize.height*0.15;
 	auto line2 = origin.y + visibleSize.height*0.4;
 
-	auto itemAtk1 = ui::Button::create("ui/btn_atk/btn_atk_01.png", "ui/btn_atk/btn_atk_01.png", "ui/btn_atk/btn_atk_01.png");
+	itemAtk1 = ui::Button::create("ui/btn_atk/btn_atk_01.png", "ui/btn_atk/btn_atk_01.png", "ui/btn_atk/btn_atk_01.png");
 	itemAtk1->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type) {
 		case ui::Widget::TouchEventType::BEGAN: 
 			_hero->atk1();
+			itemAtk1->setOpacity(180);
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			itemAtk1->setOpacity(100);
 			break;
 		}
 	});
 
-	auto itemAtk2 = ui::Button::create("ui/btn_atk/btn_atk_02.png", "ui/btn_atk/btn_atk_02.png", "ui/btn_atk/btn_atk_02.png");
+	itemAtk2 = ui::Button::create("ui/btn_atk/btn_atk_02.png", "ui/btn_atk/btn_atk_02.png", "ui/btn_atk/btn_atk_02.png");
 	itemAtk2->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type) {
 		case ui::Widget::TouchEventType::BEGAN:
 			_hero->atk2();
+			itemAtk2->setOpacity(180);
 			break;
-		}
-		});
-
-	auto itemAtk4 = ui::Button::create("ui/btn_atk/btn_atk_04.png", "ui/btn_atk/btn_atk_04.png", "ui/btn_atk/btn_atk_04.png");
-	itemAtk4->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
-		switch (type) {
-		case ui::Widget::TouchEventType::BEGAN:
-			_hero->atk4();
+		case ui::Widget::TouchEventType::ENDED:
+			itemAtk2->setOpacity(100);
 			break;
 		}
 	});
 
-	auto itemAtk5 = ui::Button::create("ui/btn_atk/btn_atk_05.png", "ui/btn_atk/btn_atk_05.png", "ui/btn_atk/btn_atk_05.png");
+	itemAtk4 = ui::Button::create("ui/btn_atk/btn_atk_04.png", "ui/btn_atk/btn_atk_04.png", "ui/btn_atk/btn_atk_04.png");
+	itemAtk4->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type) {
+		case ui::Widget::TouchEventType::BEGAN:
+			_hero->atk4();
+			itemAtk4->setOpacity(180);
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			itemAtk4->setOpacity(100);
+			break;
+		}
+	});
+
+	itemAtk5 = ui::Button::create("ui/btn_atk/btn_atk_05.png", "ui/btn_atk/btn_atk_05.png", "ui/btn_atk/btn_atk_05.png");
 	itemAtk5->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		switch (type) {
 		case ui::Widget::TouchEventType::BEGAN:
 			_hero->atk5();
+			itemAtk5->setOpacity(180);
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			itemAtk5->setOpacity(100);
 			break;
 		}
 	});
