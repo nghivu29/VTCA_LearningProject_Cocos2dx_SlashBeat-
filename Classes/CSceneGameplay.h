@@ -42,7 +42,7 @@ protected:
 	int _x = 8;
 
 	// chỉnh tốc độ của backround (_bgSpeed càng lớn càng nhanh )
-	float _bgSpeed = 0;
+	float _bgSpeed = 10;
 
 	// chinh toc do chay cua hero;
 	float _heroRunSpeed = 0.5f;

@@ -24,6 +24,7 @@ void CMusic::StartMusic()
 			_isDone = true;
 		});
 
+
 	// run update
 	scheduleUpdate();
 }
@@ -67,22 +68,6 @@ void CMusic::resume()
 
 int CMusic::whichNote()
 {
-	//if (_songPosition >= 0)
-	//{
-	//	if (_notesChanges[(int)_songPositionInBeats].size() != 0)
-	//	{
-	//		pre_songPositionInBeats = (int)_songPositionInBeats;
-	//		return _notesChanges[(int)_songPositionInBeats][(int)_loopPositionInBeats];
-	//	}
-	//	else
-	//	{
-	//		if (pre_songPositionInBeats != -1000)
-	//		{
-	//			return _notesChanges[(int)pre_songPositionInBeats][(int)_loopPositionInBeats];
-	//		}
-	//	}
-	//}
-	//return 0;
 
 	if (_songPosition >= 0)
 	{

@@ -1,8 +1,11 @@
 #include "CSceneMainmenu.h"
 #include "CLayerSelectScreenPlay.h"
 #include "common.h"
+#include "AudioEngine.h"
 
 USING_NS_CC;
+using namespace experimental;
+
 
 CSceneMainmenu * CSceneMainmenu::createScene()
 {
@@ -14,15 +17,18 @@ bool CSceneMainmenu::init()
 	if (!Scene::init())
 		return false;
 
+	setName("SceneMainmenu");
 	initMenu();
 	initBg();
 
+	AudioEngine::play2d("res/audio/music/Welshly Arms-Legendary.mp3", true);
 
 	return true;
 }
 
 void CSceneMainmenu::startGame(cocos2d::Ref *)
 {
+	AudioEngine::stopAll();
 	Director::getInstance()->pushScene(CLayerSelectScreenPlay::createScene());
 	log("START GAME");
 }

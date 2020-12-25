@@ -246,6 +246,9 @@ void CHero::comboEffect1()
 
 void CHero::atk1()
 {
+	if (_status == DEAD)
+		return;
+
 	if (getPosition() == HERO_POS_UP)
 	{
 		runTeleEffect();
@@ -257,6 +260,9 @@ void CHero::atk1()
 
 void CHero::atk2()
 {
+	if (_status == DEAD)
+		return;
+
 	if (getPosition() == HERO_POS_UP)
 	{
 		runTeleEffect();
@@ -268,6 +274,9 @@ void CHero::atk2()
 
 void CHero::atk4()
 {
+	if (_status == DEAD)
+		return;
+
 	if (getPosition() == HERO_POS_DOWN)
 	{
 		runTeleEffect();
@@ -279,6 +288,9 @@ void CHero::atk4()
 
 void CHero::atk5()
 {
+	if (_status == DEAD)
+		return;
+
 	if (getPosition() == HERO_POS_DOWN)
 	{
 		runTeleEffect();

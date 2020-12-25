@@ -2,6 +2,8 @@
 #include "CSceneGameplay.h"
 #include "CSceneGameplay2.h"
 #include "CSceneGameplay3.h"
+#include "CSceneTutorial.h"
+#include "AudioEngine.h"
 
 // xoa di sau khi test xong
 #include "CEnemyBoss.h"
@@ -84,7 +86,7 @@ bool CLayerSelectScreenPlay::init()
 
 void CLayerSelectScreenPlay::gotoScreen1Callback(cocos2d::Ref * pSender)
 {
-	Director::getInstance()->pushScene(CSceneGameplay::createScene());
+	Director::getInstance()->pushScene(CSceneTutorial::createScene());
 }
 
 void CLayerSelectScreenPlay::gotoScreen2Callback(cocos2d::Ref * pSender)
@@ -99,6 +101,7 @@ void CLayerSelectScreenPlay::gotoScreen3Callback(cocos2d::Ref * pSender)
 
 void CLayerSelectScreenPlay::backSceneCallback(cocos2d::Ref * pSender)
 {
+	experimental::AudioEngine::play2d("res/audio/music/Welshly Arms-Legendary.mp3", true);
 	Director::getInstance()->popScene();
 }
 

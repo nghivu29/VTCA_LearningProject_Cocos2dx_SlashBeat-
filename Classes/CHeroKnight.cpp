@@ -46,13 +46,16 @@ void CHeroKnight::dead()
 				sp->setScale(0.5f);
 				scene->addChild(sp, 10);
 
+
 				scene->getChildByName("LayerOption")->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 
+				
 			}
 		),
 		_animatesDead.at(0),
 		nullptr
 	));
+	runAction(MoveBy::create(1.0f, Vec2(-100, 0)));
 }
 
 void CHeroKnight::hit()
@@ -92,6 +95,9 @@ void CHeroKnight::stun()
 
 void CHeroKnight::attack1()
 {
+	if (_status == DEAD)
+		return;
+
 	log("Hero: %f", _music->_songPositionInBeats);
 	CHero::attack1();
 	stopAllActions();
@@ -101,6 +107,8 @@ void CHeroKnight::attack1()
 
 void CHeroKnight::attack2()
 {
+	if (_status == DEAD)
+		return;
 	log("Hero: %f", _music->_songPositionInBeats);
 	CHero::attack2();
 	stopAllActions();

@@ -2,6 +2,7 @@
 #include "CSceneGameplay.h"
 #include "CSceneGameplay2.h"
 #include "CSceneGameplay3.h"
+#include "CSceneTutorial.h"
 #include "AudioEngine.h"
 #include "common.h"
 
@@ -85,6 +86,9 @@ void CLayerOption::playAgain(cocos2d::Ref *)
 	auto scene = Director::getInstance()->getRunningScene();
 	switch (scene->getTag())
 	{
+	case 0:
+		Director::getInstance()->replaceScene(CSceneTutorial::createScene());
+		break;
 	case 1:
 		Director::getInstance()->replaceScene(CSceneGameplay::createScene());
 		break;

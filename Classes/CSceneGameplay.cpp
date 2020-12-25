@@ -7,6 +7,7 @@
 #include "CMusicTest.h"
 #include "CMusicThroughTheFireAndFlames.h"
 #include "CMusicUnity.h"
+#include "AudioEngine.h"
 
 USING_NS_CC;
 
@@ -79,6 +80,8 @@ void CSceneGameplay::update(float delta)
 		unscheduleUpdate();
 		return;
 	}
+
+
 
 	// update diem so
 	updateCombo(delta);
@@ -333,10 +336,10 @@ bool CSceneGameplay::initHeroAndroidCtr()
 	itemAtk4->setPosition(origin + Vec2(visibleSize.width*0.05, line2));
 	itemAtk5->setPosition(origin + Vec2(visibleSize.width*0.95, line2));
 
-	itemAtk1->setScale(3);
-	itemAtk2->setScale(3);
-	itemAtk4->setScale(3);
-	itemAtk5->setScale(3);
+	itemAtk1->setScale(BTN_ATK_RATIO);
+	itemAtk2->setScale(BTN_ATK_RATIO);
+	itemAtk4->setScale(BTN_ATK_RATIO);
+	itemAtk5->setScale(BTN_ATK_RATIO);
 
 	itemAtk1->setOpacity(100);
 	itemAtk2->setOpacity(100);

@@ -81,6 +81,8 @@ list(APPEND GAME_SOURCE
         Classes/CLayerSelectScreenPlay.cpp
         Classes/CFire.cpp
         Classes/CMusicUnity.cpp
+        Classes/CSceneTutorial.cpp
+
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -117,6 +119,7 @@ list(APPEND GAME_HEADER
         Classes/CLayerSelectScreenPlay.h
         Classes/CFire.h
         Classes/CMusicUnity.h
+        Classes/CSceneTutorial.h
         )
 
 if(ANDROID)
